@@ -13,7 +13,7 @@ git pull origin master
 git add .		(add file can push)
 
 git commit -m "your name: giai thich update cai gi"         
-//ví dụ: git commit -m "PA: update class ..."
+//ví dụ: git commit -m "PA: update class UserController"
 
 git push -u origin master            
 //(chắc chắn phải có -u, để check xem code của bạn đã là code mới nhất chưa, nếu chưa thì git pull nhé)

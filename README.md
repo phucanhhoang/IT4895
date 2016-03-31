@@ -18,6 +18,14 @@ git commit -m "your name: giai thich update cai gi"
 git push -u origin master            
 //(chắc chắn phải có -u, để check xem code của bạn đã là code mới nhất chưa, nếu chưa thì git pull nhé)
 
+###Huong dan su dung Migrate:
+##1. Sau khi clone code or pull code ve, tao moi database:
+
+php artisan migrate
+
+##2. Neu da ton tai database truoc do, refesh database de cap nhat thay doi:
+
+php artisan migrate:refresh
 
 
 

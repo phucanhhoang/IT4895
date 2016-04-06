@@ -17,7 +17,7 @@ class CreateAccountTable extends Migration
             $table->string('username', 50);
             $table->string('password', 64);
             $table->morphs('userable');
-            // $table->timestamps();
+            $table->timestamps();
         });
     }
 

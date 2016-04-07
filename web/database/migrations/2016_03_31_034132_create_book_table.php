@@ -21,7 +21,8 @@ class CreateBookTable extends Migration
             $table->foreign('publisher_id')->references('id')->on('publisher');
             $table->integer('genre_id')->unsigned();
             $table->foreign('genre_id')->references('id')->on('genre');
-            $table->string('isbn', 20);
+            $table->string('image', 200);
+            $table->string('isbn', 13);
             $table->text('description');
             $table->integer('price')->unsigned();
             $table->timestamps();

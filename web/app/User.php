@@ -1,26 +1,91 @@
 <?php
+/**
+ * Created by IntelliJ IDEA.
+ * User: ANHHP
+ * Date: 4/6/2016
+ * Time: 9:47 AM
+ */
 
 namespace App;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
-class User extends Authenticatable
-{
+    use Authenticatable, CanResetPassword;
+
     /**
-     * The attributes that are mass assignable.
+     * The database table used by the model.
      *
-     * @var array
+     * @var string
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+
+    protected $table = 'users';
+
+    public $timestamps = false;
+    
+    protected $fillable = array('username', 'email');
+
+    protected $guarded = array('id', 'password');
+
+    protected $hidden = array('password', 'remember_token', 'userable_id', 'userable_type');
+
+    public static $rules_login = array(
+        'username' => 'required|alpha_num|between:3,32',
+        'password' => 'required|alpha_num|between:6,64',
+    );
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+
+    public function isAdmin() {
+        return ($this->getUserableType() == 'admin');
+    }
+
+    public function userable() {
+        return $this->morphTo();
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier() {
+        return $this->getKey();
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword() {
+        return $this->password;
+    }
+
+    /**
+     * Get userable_id
+     */
+    public function getUserableId() {
+        return $this->userable_id;
+    }
+
+    /**
+     * Get userable_type
+     */
+    public function getUserableType() {
+        return $this->userable_type;
+    }
+    public function getUser() {
+
+        $array = array('username' => $this->username, 'id' => $this->id, 'password' => $this->password, 'email' => $this->email);
+        return $array;
+    }
 }

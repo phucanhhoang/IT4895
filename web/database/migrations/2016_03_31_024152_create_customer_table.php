@@ -16,10 +16,7 @@ class CreateCustomerTable extends Migration
             $table->increments('id');
             $table->string('name', 50);
             $table->text('address');
-            $table->string('city', 30);
-            $table->string('country', 30);
             $table->string('phone', 15);
-            $table->string('email', 50);
             $table->timestamps();
         });
     }

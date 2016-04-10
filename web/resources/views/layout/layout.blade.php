@@ -28,8 +28,11 @@
 		<!-- navigator different with different actor, and we in clude navigator in pages -->
 
 	</header>
-	@if(Session::has('message'))
-	<p style="margin-top:-10px" class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+	@if (session('message'))
+	<div class="alert {{session('alert-class')}} alert-dismissable" style="position: absolute;top: 10px;left: 30%;width: 40%;">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		{{ session('message') }}
+	</div>
 	@endif
 	{{-- <div class="container content">
 		@yield('breadcrumbs')

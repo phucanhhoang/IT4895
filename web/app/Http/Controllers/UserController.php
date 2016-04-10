@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\User;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -17,7 +18,7 @@ class UserController extends Controller
 	public function getLogin(){
 		return view('login');
 	}
-    public function postLogin(Request $request) {
+    public function postLogin(UserRequest $request) {
 
 			// create our user data for the authentication
 			$userdata = array(

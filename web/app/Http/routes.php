@@ -13,8 +13,17 @@
 
 Route::get('/', 'HomeController@index');
 
-Route::get('auth/login', ['as' => 'getLogin', 'uses' => 'UserController@getLogin']);
-Route::post('auth/login', ['as' => 'postLogin', 'uses' => 'UserController@postLogin']);
+Route::get('auth/login', ['as' => 'getLogin', 'uses' => 'Auth\AuthController@getLogin']);
+Route::post('auth/login', ['as' => 'postLogin', 'uses' => 'Auth\AuthController@postLogin']);
+
+//Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
+
+Route::get('auth/register', ['as' => 'getRegister', 'uses' => 'Auth\AuthController@getRegister']);
+Route::post('auth/register', ['as' => 'postRegister', 'uses' => 'Auth\AuthController@postRegister']);
+
+Route::get('authen/register', function(){
+	return view('authen.register');
+});
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

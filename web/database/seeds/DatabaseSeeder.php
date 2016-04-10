@@ -268,5 +268,17 @@ class DatabaseSeeder extends Seeder
             DB::table('book')->insert( $arrBook );
             $count++;
         }
+
+        //Admin seeder
+        DB::table('users')->delete();
+        $arrUser = array(
+            'username' => 'admin',
+            'password' => Hash::make(123456),
+            'email' => 'phucanh48@gmail.com',
+            'userable_id' => '',
+            'userable_type' => 'admin',
+            'remember_token' => ''
+        );
+        DB::table('users')->insert( $arrUser );
     }
 }

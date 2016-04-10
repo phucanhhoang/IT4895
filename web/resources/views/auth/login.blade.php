@@ -7,16 +7,16 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{Asset('bootstrap/css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> --}}
-    <link rel="stylesheet" href="../css/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="{{Asset('css/font-awesome/css/font-awesome.min.css')}}" />
     <!-- Ionicons -->
     {{-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> --}}
     <!-- Theme style -->
-    <link rel="stylesheet" href="../css/AdminLTE.min.css">
+    <link rel="stylesheet" href="{{Asset('css/AdminLTE.min.css')}}">
     <!-- iCheck -->
-    <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
+    <link rel="stylesheet" href="{{Asset('plugins/iCheck/square/blue.css')}}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -26,6 +26,12 @@
     <![endif]-->
   </head>
   <body class="hold-transition login-page">
+  @if (session('message'))
+  <div class="alert {{session('alert-class')}} alert-dismissable" style="position: absolute;top: 10px;left: 30%;width: 40%;">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      {{ session('message') }}
+  </div>
+  @endif
     <div class="login-box">
       <div class="login-logo">
         <a href="{{Asset('')}}">
@@ -35,13 +41,22 @@
       </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
-        <form action="{{Asset('auth/login')}}" method="post">
+          @if (count($errors) > 0)
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+          @endif
+        <form action="{{ url('/auth/login') }}" method="post">
             <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
         	<div class="div-row">
 				<p id="login-error-mess" style="display:none"></p>
 			</div>
           <div class="form-group has-feedback">
-            <input id="username" name="username" type="text" class="form-control" placeholder="Account" onkeypress="login_keypress(event);" />
+            <input id="username" name="username" type="text" class="form-control" placeholder="Account" value="{{ old('username') }}" onkeypress="login_keypress(event);" />
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <p id="username-error-mess" style="display:none"></p>
@@ -55,7 +70,7 @@
             <div class="col-xs-8">
               <div class="checkbox icheck">
                 <label>
-                  <input type="checkbox"> Remember Me
+                  <input type="checkbox" name="chkRemember"> Remember Me
                 </label>
               </div>
             </div><!-- /.col -->
@@ -72,17 +87,17 @@
         </div><!-- /.social-auth-links -->
 
         <a href="#">I forgot my account or my password</a><br>
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="{{Asset('auth/register')}}" class="text-center">Register a new membership</a>
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="{{Asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
     <!-- Bootstrap 3.3.5 -->
-    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{Asset('bootstrap/js/bootstrap.min.js')}}"></script>
     <!-- iCheck -->
-    <script src="../plugins/iCheck/icheck.min.js"></script>
+    <script src="{{Asset('plugins/iCheck/icheck.min.js')}}"></script>
     <script>
       $(function () {
         $('input').iCheck({
@@ -92,10 +107,10 @@
         });
       });
 
-	$("#btn-login").on('click',function(){
-		login_click();
-		return false;
-	});
+//	$("#btn-login").on('click',function(){
+//		login_click();
+//		return false;
+//	});
 	function login_keypress(e){
 		if(e.keyCode == 13)
 			login_click();
@@ -118,7 +133,7 @@
 		if(check){
 			$.ajax({
 				type: "POST",
-				url: "{{url('/login')}}",
+				url: "{{url('auth/login')}}",
 				cache: false,
 				data: {username: username, password: password},
 				success: function(data){

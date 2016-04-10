@@ -15,17 +15,20 @@
 
 		<div id="header-right" class="col-md-9 col-sm-9 hidden-xs">
 			@if(Auth::check())
-				@if(Auth::user()->userable_type=='customer')
+				@if(Auth::user()->userable_type == 'customer')
 					<ul class="hello-user navbar-right">
 					<li>
 					<a href="#">
-						Xin chào <b>{{Auth::user()->userable->name}}</b>
+						Xin chào, <b>{{App\Customer::find(Auth::user()->userable_id)->name}}</b>
 					</a>
 					</li>
 					<li class="divider">
 					<i class="fa fa-shopping-cart"></i>
 					<a href="#">Giỏ hàng</a>
 					</li>
+						<li class="divider">
+							<a href="{{asset('auth/logout')}}">Đăng xuất</a>
+						</li>
 					</ul>
 				@else
 					<ul class="hello-user navbar-right">
@@ -37,15 +40,18 @@
 					<li class="divider">
 					<a href="#">Trang quản trị</a>
 					</li>
+						<li class="divider">
+							<a href="{{asset('auth/logout')}}">Đăng xuất</a>
+						</li>
 					</ul>
 				@endif
 			@else
 			<ul class="hello-user navbar-right">
 				<li>
-					<a href="{{Asset('login')}}">Đăng nhập</a>
+					<a href="{{Asset('auth/login')}}">Đăng nhập</a>
 				</li>
 				<li class="divider">
-					<a href="{{Asset('register')}}">Đăng ký</a>
+					<a href="{{Asset('auth/register')}}">Đăng ký</a>
 				</li>
 				<li class="divider">
 					<i class="fa fa-shopping-cart"></i>
@@ -54,7 +60,6 @@
 			</ul>
 			@endif
 		</div>
-		<?php echo (Auth::check()); ?>
 	</div>
 </div>
 <!--end of banner

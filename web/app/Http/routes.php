@@ -11,21 +11,81 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+//Global Variables
 
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
+Route::get('/index', 'HomeController@index');
+
+//Login
 Route::get('auth/login', ['as' => 'getLogin', 'uses' => 'Auth\AuthController@getLogin']);
 Route::post('auth/login', ['as' => 'postLogin', 'uses' => 'Auth\AuthController@postLogin']);
 
-//Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@logout']);
-
+//Register
 Route::get('auth/register', ['as' => 'getRegister', 'uses' => 'Auth\AuthController@getRegister']);
 Route::post('auth/register', ['as' => 'postRegister', 'uses' => 'Auth\AuthController@postRegister']);
 
-Route::get('authen/register', function(){
-	return view('authen.register');
-});
+//Genre
+Route::get('genre/{id}', ['as' => 'showGenre', 'uses' => 'GenreController@show']);
+Route::post('genre/sort-book', 'GenreController@sortBook');
+
+//Book
+Route::get('book/{genre_id}/{id}', ['as' => 'showBook', 'uses' => 'BookController@show']);
+
+//Cart
+Route::post('cart/get-cart', ['as' => 'getCart', 'uses' => 'CartController@getCart']);
+Route::post('cart/add-cart', ['as' => 'addCart', 'uses' => 'CartController@addCart']);
+
+//Check out
+Route::get('checkout', ['as' => 'getCheckOut', 'uses' => 'OrderController@getCheckOut']);
+Route::post('checkout', ['as' => 'postCheckOut', 'uses' => 'OrderController@postCheckOut']);
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+//----------------------- Admin zone -------------------------------//
+Route::group(['prefix' => 'adpage'], function () {
+	Route::get('/', 'HomeController@adminIndex');
+
+	//Order
+	Route::get('order', ['as' => 'getOrder', 'uses' => 'OrderController@getOrder']);
+	Route::post('order/getOrderByStatus', 'OrderController@getOrderByStatus'); //get order by status
+	Route::post('order/info', 'OrderController@orderInfo'); //get info order
+	Route::post('order/delorder', 'OrderController@delOrder'); //delete order
+	Route::post('order/saveOrder', 'OrderController@saveOrder'); //save info order
+
+	//Author
+	Route::get('author', ['as' => 'getAuthor', 'uses' => 'AuthorController@getAuthor']);
+	Route::post('author/info', 'AuthorController@authorInfo'); //get info author
+	Route::post('author/delAuthor', 'AuthorController@delAuthor'); //delete author
+	Route::post('author/saveAuthor', 'AuthorController@saveAuthor'); //save info author
+
+	//Genre
+	Route::get('genre', ['as' => 'getGenre', 'uses' => 'GenreController@getGenre']);
+	Route::post('genre/info', 'GenreController@genreInfo'); //get info genre
+	Route::post('genre/delGenre', 'GenreController@delGenre'); //delete genre
+	Route::post('genre/saveGenre', 'GenreController@saveGenre'); //save info genre
+
+	//Publisher
+	Route::get('publisher', ['as' => 'getPublisher', 'uses' => 'PublisherController@getPublisher']);
+	Route::post('publisher/info', 'PublisherController@publisherInfo'); //get info publisher
+	Route::post('publisher/delPublisher', 'PublisherController@delGenre'); //delete publisher
+	Route::post('publisher/savePublisher', 'PublisherController@saveGenre'); //save info publisher
+
+	//Book
+	Route::get('book', ['as' => 'getBook', 'uses' => 'BookController@getBook']);
+
+	//Customer
+	Route::get('customer', ['as' => 'getCustomer', 'uses' => 'CustomerController@getCustomer']);
+
+	//Account
+	Route::get('account', ['as' => 'getAccount', 'uses' => 'UserController@getAccount']);
+
+	//Statistic
+	Route::get('statistic', ['as' => 'getStatistic', 'uses' => 'HomeController@getStatistic']);
+
+	//Trash
+//	Route::get('trash', ['as' => 'getTrash', 'uses' => 'HomeController@getTrash']);
+});

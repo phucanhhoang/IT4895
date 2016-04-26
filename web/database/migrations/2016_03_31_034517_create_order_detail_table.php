@@ -18,8 +18,8 @@ class CreateOrderDetailTable extends Migration
             $table->foreign('order_id')->references('id')->on('order');
             $table->integer('book_id')->unsigned();
             $table->foreign('book_id')->references('id')->on('book');
-            $table->integer('quantity')->unsigned();
-            $table->integer('book_price')->unsigned();
+            $table->tinyInteger('quantity')->unsigned();
+            $table->boolean('deleted');
             // $table->timestamps();
         });
     }

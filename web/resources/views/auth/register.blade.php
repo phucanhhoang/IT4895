@@ -13,6 +13,8 @@
     <!-- Ionicons -->
     {{-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> --}}
     <link rel="stylesheet" href="{{Asset('css/font-awesome/css/font-awesome.min.css')}}" />
+    <!-- alert animation style -->
+    <link rel="stylesheet" href="{{asset('plugins/alert-animation/alert.animation.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{Asset('css/AdminLTE.min.css')}}">
     <!-- iCheck -->
@@ -27,9 +29,10 @@
   </head>
   <body class="hold-transition register-page">
     @if (session('message'))
-    <div class="alert {{session('alert-class')}} alert-dismissable" style="position: absolute;top: 10px;left: 30%;width: 40%;">
+    <div id="myAlert" class="alert {{session('alert-class')}} alert-dismissable fade in"
+         style="position: fixed;top: 10px;left: 30%;width: 40%;">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      {{ session('message') }}
+      <i class="icon fa {{session('fa-class')}}"></i> {{ session('message') }}
     </div>
     @endif
     <div class="register-box" style="margin: 1% auto">
@@ -50,6 +53,7 @@
         @endif
         <form action="{{Asset('auth/register')}}" method="post">
           <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
+          <input type="hidden" name="rtn_url" value="{{URL::previous()}}"/>
           <div class="form-group has-feedback">
             <input type="text" name="name" class="form-control" placeholder="Full name" value="{{ old('name') }}">
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -59,12 +63,14 @@
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" name="password" class="form-control" placeholder="Password">
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" name="re_password" class="form-control" placeholder="Retype password">
+            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control"
+                   placeholder="Retype password">
             <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+            <p id="password_match" style="display:none"></p>
           </div>
           <div class="form-group has-feedback">
             <input type="text" name="address" class="form-control" placeholder="Address" value="{{ old('address') }}">
@@ -116,6 +122,21 @@
           radioClass: 'iradio_square-blue',
           increaseArea: '20%' // optional
         });
+      });
+
+      $('#password_confirmation').keyup(function (event) {
+        if ($(this).val() == $('#password').val()) {
+          $('#password_match').html("<i class='fa fa-check'></i> Mật khẩu đã khớp");
+          $('#password_match').removeClass('text-yellow');
+          $('#password_match').addClass('text-green');
+          $('#password_match').show();
+        }
+        else {
+          $('#password_match').html("<i class='fa fa-warning'></i> Mật khẩu chưa khớp");
+          $('#password_match').removeClass('text-green');
+          $('#password_match').addClass('text-yellow');
+          $('#password_match').show();
+        }
       });
     </script>
   </body>

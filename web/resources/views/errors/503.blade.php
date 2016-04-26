@@ -1,41 +1,43 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>@yield('title')</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.5 -->
+  <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{asset('css/font-awesome/css/font-awesome.min.css')}}"/>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <!-- <link rel="stylesheet" href="{{asset('css/skins/_all-skins.min.css')}}"> -->
 
-		<style>
-			body {
-				margin: 0;
-				padding: 0;
-				width: 100%;
-				height: 100%;
-				color: #B0BEC5;
-				display: table;
-				font-weight: 100;
-				font-family: 'Lato';
-			}
-
-			.container {
-				text-align: center;
-				display: table-cell;
-				vertical-align: middle;
-			}
-
-			.content {
-				text-align: center;
-				display: inline-block;
-			}
-
-			.title {
-				font-size: 72px;
-				margin-bottom: 40px;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<div class="content">
-				<div class="title">Be right back.</div>
-			</div>
-		</div>
-	</body>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class="wrapper">
+  <!-- Main content -->
+  <section class="content">
+    <div class="error-page" style='width: 490px'>
+      <h2 class="headline text-yellow" style="margin-top: 0"> 404</h2>
+      <div class="error-content" style='padding-top: 1px'>
+        <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
+        <p>
+          We could not find the page you were looking for.<br/>
+          <a href="{{asset('/')}}">return to home page</a>
+        </p>
+      </div><!-- /.error-content -->
+    </div><!-- /.error-page -->
+  </section><!-- /.content -->
+</div><!-- ./wrapper -->
+</body>
 </html>

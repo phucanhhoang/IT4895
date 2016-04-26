@@ -240,7 +240,7 @@ class DatabaseSeeder extends Seeder
         //Genre seeder
         DB::table('genre')->delete();
         $genrename = array(
-            'Romance', 'Fantasy', 'Teen', 'Mystery', 'Horror', 'Historical-fiction', 'Thriller', 'Children', 'History', 'Science-fiction', 'Love', 'Computer',
+            'Art, Architecture', 'Romance', 'Fantasy', 'Teen', 'Mystery', 'Horror', 'Historical-fiction', 'Thriller', 'Children', 'History', 'Science-fiction', 'Love', 'Computer',
             'Biography', 'Mathology'
         );
         for($i = 0; $i < sizeof($genrename); $i++){
@@ -250,20 +250,46 @@ class DatabaseSeeder extends Seeder
 
         //Book seeder
         DB::table('book')->delete();
+        $arrTitle = array(
+            'Harry Potter and the Chamber of Secrets',
+            'The Divine Comedy by Dante',
+            'Five Novels by Charles Dickens',
+            'Christopher Paolini Inheritance Cycle - Brisingr',
+            'The Mayor\'s Tongue by Nathaniel Rich',
+            'The Chronicles of Narnia',
+            'Dick Morris Hardcover Collection',
+            'Seven Novels by Jules Verne'
+        );
+        $arrDescription = array(
+            'For a long period of time books were very rare and because of such confines only some "esoteric" people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... Yeah, they are worth our admiring.
+            And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring. On-line book stores can offer you a great assortment of books.',
+            'Yeah, they are worth our admiring. But those times are long gone and we live in 21 century and the most revolutionary thing that had happened is that books have lost their natural view. Books became more available. On-line book stores can offer you a great assortment of books. Can you imagine a world of knowledge without limits? Our business is very noble and it has many traditions.',
+            'Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring. We have tremendous variety of products, here you can find the world famous bestsellers and the books of unknown authors.',
+            'Can you imagine a world of knowledge without limits? You can get everything you want and all you have to do is just visit our store. We have tremendous variety of products, here you can find the world famous bestsellers and the books of unknown authors. Actually we do understand that our activity is very important for many of you and we will never let you down. Yeah, they are worth our admiring.',
+            'And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... The unique smell of old and new pages, soft cover and so on. Yeah, they are worth our admiring. On-line book stores can offer you a great assortment of books.',
+            'For a long period of time books were very rare and because of such confines only some "esoteric" people could afford them. And you know what? Books always have some notes of mysticism. Just remember that special atmosphere of solitude in the library or in the old book-store, it seemed that imponderable scent of rational identity is in the air... Yeah, they are worth our admiring.',
+            'Well, reading books as a hobby was always a noble, pleasant and very useful kind of activity. It gives knowledge, excerpts on the process of development of your personality. For a long period of time books were very rare and because of such confines only some "esoteric" people could afford them. And you know what? Books always have some notes of mysticism.',
+            'But those times are long gone and we live in 21 century and the most revolutionary thing that had happened is that books have lost their natural view. Books became more available. On-line book stores can offer you a great assortment of books. Can you imagine a world of knowledge without limits? You can get everything you want and all you have to do is just visit our store.'
+        );
         $count = 0;
-        while($count < 40){
+        while ($count < 8) {
             $isbn1 = (string)rand(100000, 999999);
             $isbn2 = (string)rand(1000000, 9999999);
             $isbn = $isbn1.$isbn2;
+            $price = rand(100, 300) * 1000;
+            $now = date('Y-m-d H:i:s');
             $arrBook = array(
-                'title' => '',
+                'title' => $arrTitle[$count],
                 'author_id' => rand(1, 20),
                 'publisher_id' => rand(1, 10),
                 'genre_id' => rand(1, 14),
-                'image' => '',
+                'image' => 'abc.jpg',
                 'isbn' => $isbn,
+                'description_short' => $arrDescription[$count],
                 'description' => '',
-                'price' => 0
+                'price' => $price,
+                'sale' => 0,
+                'quantity' => rand(10, 50)
             );
             DB::table('book')->insert( $arrBook );
             $count++;
@@ -280,5 +306,19 @@ class DatabaseSeeder extends Seeder
             'remember_token' => ''
         );
         DB::table('users')->insert( $arrUser );
+
+        //Genre detail seeder
+        DB::table('genre_detail')->delete();
+        $arrGenreDetail = array(
+            array(
+                'name' => 'Etur adipisicing eli',
+                'genre_id' => 1
+            ),
+            array(
+                'name' => 'Sed do eiusmod tempor',
+                'genre_id' => 1
+            )
+        );
+        DB::table('genre_detail')->insert($arrGenreDetail);
     }
 }

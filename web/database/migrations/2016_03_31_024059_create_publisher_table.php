@@ -15,7 +15,9 @@ class CreatePublisherTable extends Migration
         Schema::create('publisher', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 200);
+            $table->string('address', 300);
             $table->string('country', 30);
+            $table->boolean('deleted');
             // $table->timestamps();
         });
     }

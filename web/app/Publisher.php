@@ -11,5 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Publisher extends Model
 {
+    protected $table = 'publisher';
 
+    public $timestamps = false;
+
+    protected $fillable = array('id', 'name', 'address', 'country');
 }

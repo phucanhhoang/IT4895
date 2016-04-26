@@ -10,6 +10,7 @@ use App\Customer;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use Hash;
+use URL;
 
 class AuthController extends Controller {
 
@@ -56,13 +57,26 @@ class AuthController extends Controller {
 			$r = true;
 		else
 			$r = false;
-		// attempt to do the login
+
 		if ($this->auth->attempt($userdata, $remember = $r)) {
-//			return view('pages.index');
-			return redirect()->intended('/');
+			if ($this->auth->user()->userable_type == 'customer') {
+				if ($this->auth->user()->banned == 0) {
+					return redirect()->away($request->rtn_url);
+				} else {
+					$this->auth->logout();
+					return redirect()->away($request->rtn_url)
+						->with('message', 'Xin lỗi! Tài khoản của bạn đang bị khóa.')
+						->with('alert-class', 'alert-warning')
+						->with('fa-class', 'fa-warning');
+				}
+			} else
+				return redirect('/adpage');
 		}
 		else{
-			return redirect('auth/login')->with('message', 'Đăng nhập không thành công, vui lòng thử lại!!!')->with('alert-class', 'alert-danger');
+			return redirect('auth/login')
+				->with('message', 'Đăng nhập không thành công, vui lòng thử lại!!!')
+				->with('alert-class', 'alert-danger')
+				->with('fa-class', 'fa-ban');
 		}
 	}
 
@@ -99,14 +113,23 @@ class AuthController extends Controller {
 				'password' => $request->password,
 			);
 			if ($this->auth->attempt($userdata)) {
-				return redirect()->intended('/');
+				return redirect()->away($request->rtn_url)
+					->with('message', 'Đăng ký thành công!')
+					->with('alert-class', 'alert-success')
+					->with('fa-class', 'fa-check');
 			}
 			else{
-				return redirect('auth/login')->with('message', 'Đăng nhập không thành công, vui lòng thử lại!!!')->with('alert-class', 'alert-danger');;
+				return redirect('auth/login')
+					->with('message', 'Đăng nhập không thành công, vui lòng thử lại!')
+					->with('alert-class', 'alert-danger')
+					->with('fa-class', 'fa-ban');
 			}
 		}
 		else{
-			return redirect('auth/register')->with('alert-class', 'alert-danger')->with('message', 'Đăng ký không thành công, vui lòng thử lại!!!');
+			return redirect('auth/register')
+				->with('alert-class', 'alert-danger')
+				->with('message', 'Đăng ký không thành công, vui lòng thử lại!')
+				->with('fa-class', 'fa-ban');
 		}
 	}
 }

@@ -17,6 +17,8 @@ class CreateCustomerTable extends Migration
             $table->string('name', 50);
             $table->text('address');
             $table->string('phone', 15);
+            $table->boolean('deleted');
+            $table->timestamps();
         });
     }
 

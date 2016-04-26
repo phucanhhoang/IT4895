@@ -16,6 +16,8 @@ class CreateAuthorTable extends Migration
             $table->increments('id');
             $table->string('name', 50);
             $table->string('country', 30);
+            $table->text('profile')->nullable();
+            $table->boolean('deleted');
             // $table->timestamps();
         });
     }

@@ -18,7 +18,9 @@ class CreateUsersTable extends Migration
             $table->string('password', 64);
             $table->string('email', 50)->unique();
             $table->morphs('userable');
+            $table->boolean('banned')->default(0);
             $table->rememberToken();
+            $table->boolean('deleted');
             $table->timestamps();
         });
     }

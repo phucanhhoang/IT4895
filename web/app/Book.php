@@ -11,5 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
+    protected $table = 'book';
 
+    public $timestamps = true;
+
+    protected $fillable = array('id', 'title', 'author_id', 'publisher_id', 'genre_id', 'image', 'isbn',
+        'description_short', 'description', 'price', 'sale', 'created_at', 'updated_at');
 }

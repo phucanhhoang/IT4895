@@ -11,5 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderDetail extends Model
 {
+    protected $table = 'order_detail';
 
+    public $timestamps = false;
+
+    protected $fillable = array('id', 'order_id', 'book_id', 'quantity');
 }

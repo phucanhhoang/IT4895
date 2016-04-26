@@ -14,7 +14,7 @@ class CreateBookTable extends Migration
     {
         Schema::create('book', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('title');
+            $table->string('title');
             $table->integer('author_id')->unsigned();
             $table->foreign('author_id')->references('id')->on('author');
             $table->integer('publisher_id')->unsigned();
@@ -23,8 +23,12 @@ class CreateBookTable extends Migration
             $table->foreign('genre_id')->references('id')->on('genre');
             $table->string('image', 200);
             $table->string('isbn', 13);
+            $table->text('description_short');
             $table->text('description');
             $table->integer('price')->unsigned();
+            $table->tinyInteger('sale')->unsigned();
+            $table->smallInteger('quantity')->unsigned();
+            $table->boolean('deleted');
             $table->timestamps();
         });
     }

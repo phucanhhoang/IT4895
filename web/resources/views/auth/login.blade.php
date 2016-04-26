@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="{{Asset('css/font-awesome/css/font-awesome.min.css')}}" />
     <!-- Ionicons -->
     {{-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> --}}
+      <!-- alert animation style -->
+      <link rel="stylesheet" href="{{asset('plugins/alert-animation/alert.animation.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{Asset('css/AdminLTE.min.css')}}">
     <!-- iCheck -->
@@ -27,9 +29,10 @@
   </head>
   <body class="hold-transition login-page">
   @if (session('message'))
-  <div class="alert {{session('alert-class')}} alert-dismissable" style="position: absolute;top: 10px;left: 30%;width: 40%;">
+  <div id="myAlert" class="alert {{session('alert-class')}} alert-dismissable fade in"
+       style="position: fixed;top: 10px;left: 30%;width: 40%;">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      {{ session('message') }}
+      <i class="icon fa {{session('fa-class')}}"></i> {{ session('message') }}
   </div>
   @endif
     <div class="login-box">
@@ -52,6 +55,7 @@
           @endif
         <form action="{{ url('/auth/login') }}" method="post">
             <input type="hidden" name="_token" value="{!! csrf_token() !!}" />
+            <input type="hidden" name="rtn_url" value="{{URL::previous()}}"/>
         	<div class="div-row">
 				<p id="login-error-mess" style="display:none"></p>
 			</div>
@@ -80,13 +84,14 @@
           </div>
         </form>
 
-        <div class="social-auth-links text-center">
+          {{--
+          <div class="social-auth-links text-center">
           <p>- OR -</p>
           <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>
           <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
-        </div><!-- /.social-auth-links -->
+          </div><!-- /.social-auth-links --> --}}
 
-        <a href="#">I forgot my account or my password</a><br>
+          {{-- <a href="#">I forgot my account or my password</a><br> --}}
         <a href="{{Asset('auth/register')}}" class="text-center">Register a new membership</a>
 
       </div><!-- /.login-box-body -->

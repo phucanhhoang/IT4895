@@ -8,5 +8,9 @@ use App\Http\Requests;
 
 class CustomerController extends Controller
 {
-    //
+    public function getCustomer()
+    {
+
+        return view('admin.pages.customer');
+    }
 }

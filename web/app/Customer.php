@@ -11,12 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    protected $morphClass = 'MorphCustomer';
     protected $table = 'customer';
 
-    public $timestamps = false;
+    public $timestamps = true;
 
-    protected $fillable = array('name', 'address', 'phone');
+    protected $fillable = array('id', 'name', 'address', 'phone', 'created_at', 'updated_at');
 
     public function users() {
         return $this->morphMany('App\User', 'userable');

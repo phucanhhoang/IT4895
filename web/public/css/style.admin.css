@@ -1,0 +1,44 @@
+/*General style*/
+.text-slim-bold {
+    font-weight: 600;
+}
+
+.text-normal {
+    font-weight: normal;
+}
+
+/*Table style*/
+.table-click > tbody > tr:hover {
+    cursor: pointer;
+}
+
+/*Alert style*/
+#myAlert, #ajaxAlert {
+    position: fixed;
+    top: 10px;
+    z-index: 9999;
+    padding-bottom: 10px;
+}
+
+/*Form control*/
+input[type=text].form-control, select.form-control {
+    font-size: inherit;
+    height: 30px;
+    display: inline-block;
+}
+
+textarea.form-control {
+    font-size: inherit;
+}
+
+select.form-control {
+    width: inherit;
+    padding: 3px 6px;
+}
+
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+    height: 30px;
+    padding: 4px 8px;
+}
+
+/*End form control*/

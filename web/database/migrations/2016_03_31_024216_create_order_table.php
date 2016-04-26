@@ -12,13 +12,24 @@ class CreateOrderTable extends Migration
      */
     public function up()
     {
+        // Schema::create('payment', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name', 100);
+        // });
+
         Schema::create('order', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('customer_id')->unsigned();
             $table->foreign('customer_id')->references('id')->on('customer');
-            $table->date('order_date');
-            $table->integer('total_price')->unsigned();
-            // $table->timestamps();
+            $table->string('note', 500);
+            $table->string('ship_time', 41);
+            $table->boolean('shipped')->default(0);
+            $table->boolean('seen')->default(0);
+            $table->boolean('deleted');
+            // $table->integer('total_price')->unsigned();
+            // $table->tinyInteger('payment')->unsigned();
+            // $table->foreign('payment')->references('id')->on('payment');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +40,7 @@ class CreateOrderTable extends Migration
      */
     public function down()
     {
+        // Schema::drop('payment');
         Schema::drop('order');
     }
 }

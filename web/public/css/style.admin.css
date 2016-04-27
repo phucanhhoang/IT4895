@@ -42,3 +42,46 @@ select.form-control {
 }
 
 /*End form control*/
+
+/*Selectbox style*/
+.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {
+    padding: 4px 12px;
+    height: 30px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    top: 44%;
+}
+
+/*Top control*/
+#topcontrol {
+    background-color: #2fa1f9;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border: none;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+}
+
+#topcontrol:hover {
+    background: #2991e2;
+}
+
+#topcontrol .fa {
+    position: relative;
+    top: 3px;
+    font-size: 25px;
+}

@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="{{asset('css/skins/_all-skins.min.css')}}">
     <!-- alert animation style -->
     <link rel="stylesheet" href="{{asset('plugins/alert-animation/alert.animation.css')}}">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
     <!-- iCheck -->
@@ -69,6 +71,8 @@
 <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
 <!-- Bootstrap 3.3.5 -->
 <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
 <!-- date-range-picker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
 <script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
@@ -81,6 +85,10 @@
 <script src="{{asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
 <!-- SlimScroll 1.3.0 -->
 <script src="{{asset('plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
+<!-- CK Finder -->
+<script src="{{asset('plugins/ckfinder/ckfinder.js')}}"></script>
+<!-- CK Editor -->
+<script src="{{asset('plugins/ckeditor/ckeditor.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('js/app.min.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes)
@@ -99,6 +107,24 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        $.fn.modal.Constructor.prototype.enforceFocus = function () {
+        };
+
+        //Initialize Select2 Elements
+        $(".select2").select2();
+
+        //Initialize CKEditor
+        CKEDITOR.editorConfig = function (config) {
+            config.language = 'vi';
+            config.uiColor = '#AADC6E';
+            config.filebrowserBrowseUrl = "{{asset('/ckfinder/ckfinder.html')}}";
+            config.filebrowserImageBrowseUrl = "{{asset('/ckfinder/ckfinder.html?type=Images')}}";
+            config.filebrowserFlashBrowseUrl = "{{asset('/ckfinder/ckfinder.html?type=Flash')}}";
+            config.filebrowserUploadUrl = "{{asset('/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files')}}";
+            config.filebrowserImageUploadUrl = "{{asset('/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images')}}";
+            config.filebrowserFlashUploadUrl = "{{asset('/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash')}}";
+        };
 
         //Datetime range
         $('#reservationtime').daterangepicker({
@@ -126,6 +152,8 @@
         $('#sidebar-menu').find("a[href='{{URL::current()}}']").parent().parent().attr('style', 'display: block');
         $('#sidebar-menu').find("a[href='{{URL::current()}}']").parent().addClass('active');
     });
+
+
     function setCheckboxStyle() {
         $('input').iCheck({
             checkboxClass: 'icheckbox_square-blue',

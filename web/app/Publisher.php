@@ -15,5 +15,5 @@ class Publisher extends Model
 
     public $timestamps = false;
 
-    protected $fillable = array('id', 'name', 'address', 'country');
+    protected $fillable = array('id', 'name', 'country', 'short_intro');
 }

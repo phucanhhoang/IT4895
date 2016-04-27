@@ -71,11 +71,14 @@ Route::group(['prefix' => 'adpage'], function () {
 	//Publisher
 	Route::get('publisher', ['as' => 'getPublisher', 'uses' => 'PublisherController@getPublisher']);
 	Route::post('publisher/info', 'PublisherController@publisherInfo'); //get info publisher
-	Route::post('publisher/delPublisher', 'PublisherController@delGenre'); //delete publisher
-	Route::post('publisher/savePublisher', 'PublisherController@saveGenre'); //save info publisher
+	Route::post('publisher/delPublisher', 'PublisherController@delPublisher'); //delete publisher
+	Route::post('publisher/savePublisher', 'PublisherController@savePublisher'); //save info publisher
 
 	//Book
 	Route::get('book', ['as' => 'getBook', 'uses' => 'BookController@getBook']);
+	Route::post('book/info', 'BookController@bookInfo'); //get info Book
+	Route::post('book/delBook', 'BookController@delBook'); //delete Book
+	Route::post('book/saveBook', 'BookController@saveBook'); //save info Book
 
 	//Customer
 	Route::get('customer', ['as' => 'getCustomer', 'uses' => 'CustomerController@getCustomer']);

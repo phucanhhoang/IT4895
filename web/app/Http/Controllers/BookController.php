@@ -108,12 +108,15 @@ class BookController extends Controller
 	}
 
 	//-------------------------User and Guest page--------------------//
-	public function show($book_id, $id)
+	public function show($genre_id, $id)
 	{
 		$book = Book::findOrFail($id);
-		if ($book_id != 'book') {
-			$book = Book::find($book_id);
-			return view('pages.book')->with('book', $book)->with('book', $book);
+		if ($genre_id != 'genre') {
+			$genre = Genre::find($genre_id);
+			if ($genre->count() > 0)
+				return view('pages.book')->with('book', $book)->with('genre', $genre);
+			else
+				return view('errors.404');
 		} else
 			return view('pages.book')->with('book', $book);
 	}

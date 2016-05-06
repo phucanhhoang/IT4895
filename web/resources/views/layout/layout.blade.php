@@ -99,7 +99,7 @@
 <!-- SlimScroll 1.3.0 -->
 <script src="{{asset('resources/assets/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('js/app.min.js')}}"></script>
+<script src="{{asset('resources/assets/js/app.min.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes)
 <script src="{{asset('js/dashboard2.js')}}"></script>
 -->

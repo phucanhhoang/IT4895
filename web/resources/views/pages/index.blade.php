@@ -140,7 +140,7 @@
 
 @section('javascript')
 {{-- NivoSlider --}}
-<script src="{{asset('plugins/nivoSlider/nivo.slider.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/nivoSlider/nivo.slider.js')}}"></script>
 <script type="text/javascript" charset="utf-8">
 	$(window).load(function () {
 		$('#slider').nivoSlider({

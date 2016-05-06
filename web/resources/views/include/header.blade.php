@@ -3,14 +3,16 @@
 <div class="container header-mobile visible-xs">
 	<div id="header-logo-mobile" class="col-md-12 col-sm-12 logo">
 		<a href="{{Asset('')}}">
-			<img src="{{asset('img/logo.jpg')}}" alt="Logo Website" style="max-width: 100%; max-height: 100%"/>
+			<img src="{{asset('resources/assets/img/logo.jpg')}}" alt="Logo Website"
+				 style="max-width: 100%; max-height: 100%"/>
 		</a>
 	</div>
 </div>
 <div class="container header hidden-xs">
 	<div id="header-logo" class="col-md-3 col-sm-3 logo hidden-xs">
 		<a href="{{Asset('')}}">
-			<img src="{{asset('img/logo.jpg')}}" alt="Logo Website" style="max-width: 100%; max-height: 100%"/>
+			<img src="{{asset('resources/assets/img/logo.jpg')}}" alt="Logo Website"
+				 style="max-width: 100%; max-height: 100%"/>
 		</a>
 	</div>
 	<div id="header-right" class="col-md-9 col-sm-9 hidden-xs">

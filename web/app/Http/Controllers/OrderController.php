@@ -21,7 +21,7 @@ class OrderController extends Controller
 		$orders = Order::join('customer', 'customer.id', '=', 'order.customer_id')
 			->select('order.id', 'name', 'phone', 'address', 'ship_time', 'note', 'shipped', 'seen', 'order.created_at');
 //		$newOrders = $orders->where('shipped', '=', 0)->get();
-		$allOrders = $orders->where('deleted', '=', 0)->orderBy('created_at', 'desc')->get();
+		$allOrders = $orders->where('order.deleted', '=', 0)->orderBy('created_at', 'desc')->get();
 
 		return view('admin.pages.order')->with('orders', $allOrders);
 	}

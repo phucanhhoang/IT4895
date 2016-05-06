@@ -20,26 +20,26 @@
 
     <title>@yield('title')</title>
     {{-- {{ HTML::style('/bootstrap/css/bootstrap.css'); }} --}}
-    <link rel="stylesheet" href="{{asset('css/font-awesome/css/font-awesome.min.css')}}"/>
-    <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('resources/assets/css/font-awesome/css/font-awesome.min.css')}}"/>
+    <link rel="stylesheet" href="{{asset('resources/assets/bootstrap/css/bootstrap.min.css')}}"/>
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- daterange picker -->
-    <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}">
+    <link rel="stylesheet" href="{{asset('resources/assets/plugins/daterangepicker/daterangepicker-bs3.css')}}">
     <!-- jvectormap -->
-    <link rel="stylesheet" href="{{asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
+    <link rel="stylesheet" href="{{asset('resources/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
 
-    <link rel="stylesheet" href="{{asset('css/skins/_all-skins.min.css')}}">
+    <link rel="stylesheet" href="{{asset('resources/assets/css/skins/_all-skins.min.css')}}">
     <!-- alert animation style -->
-    <link rel="stylesheet" href="{{asset('plugins/alert-animation/alert.animation.css')}}">
+    <link rel="stylesheet" href="{{asset('resources/assets/plugins/alert-animation/alert.animation.css')}}">
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('resources/assets/plugins/select2/select2.min.css')}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
+    <link rel="stylesheet" href="{{asset('resources/assets/css/AdminLTE.min.css')}}">
     <!-- iCheck -->
-    <link rel="stylesheet" href="{{asset('plugins/iCheck/square/blue.css')}}">
+    <link rel="stylesheet" href="{{asset('resources/assets/plugins/iCheck/square/blue.css')}}">
     <!-- MyStyle -->
-    <link rel="stylesheet" href="{{asset('css/style.admin.css')}}">
+    <link rel="stylesheet" href="{{asset('resources/assets/css/style.admin.css')}}">
 
     @yield('style')
 </head>
@@ -68,38 +68,38 @@
     @include('admin.include.footer')
 </div>
 <!-- jQuery 2.1.4 -->
-<script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('resources/assets/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- Select2 -->
-<script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/select2/select2.full.min.js')}}"></script>
 <!-- date-range-picker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-<script src="{{asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <!-- FastClick -->
-<script src="{{asset('plugins/fastclick/fastclick.min.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/fastclick/fastclick.min.js')}}"></script>
 <!-- Sparkline -->
-<script src="{{asset('plugins/sparkline/jquery.sparkline.min.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/sparkline/jquery.sparkline.min.js')}}"></script>
 <!-- jvectormap -->
-<script src="{{asset('plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')}}"></script>
-<script src="{{asset('plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
 <!-- SlimScroll 1.3.0 -->
-<script src="{{asset('plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
 <!-- CK Finder -->
-<script src="{{asset('plugins/ckfinder/ckfinder.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/ckfinder/ckfinder.js')}}"></script>
 <!-- CK Editor -->
-<script src="{{asset('plugins/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/ckeditor/ckeditor.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('js/app.min.js')}}"></script>
+<script src="{{asset('resources/assets/js/app.min.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes)
 <script src="{{asset('js/dashboard2.js')}}"></script>
 -->
 <!-- AdminLTE Demo -->
-<script src="{{asset('js/demo.js')}}"></script>
+<script src="{{asset('resources/assets/js/demo.js')}}"></script>
 <!-- iCheck -->
-<script src="{{asset('plugins/iCheck/icheck.min.js')}}"></script>
-<script src="{{asset('js/back-to-top.js')}}" type="text/javascript" charset="utf-8"></script>
-<script src="{{asset('js/accounting.js')}}" type="text/javascript" charset="utf-8"></script>
+<script src="{{asset('resources/assets/plugins/iCheck/icheck.min.js')}}"></script>
+<script src="{{asset('resources/assets/js/back-to-top.js')}}" type="text/javascript" charset="utf-8"></script>
+<script src="{{asset('resources/assets/js/accounting.js')}}" type="text/javascript" charset="utf-8"></script>
 <script>
     $(document).ready(function () {
         $.ajaxSetup({
@@ -118,12 +118,12 @@
         CKEDITOR.editorConfig = function (config) {
             config.language = 'vi';
             config.uiColor = '#AADC6E';
-            config.filebrowserBrowseUrl = "{{asset('/ckfinder/ckfinder.html')}}";
-            config.filebrowserImageBrowseUrl = "{{asset('/ckfinder/ckfinder.html?type=Images')}}";
-            config.filebrowserFlashBrowseUrl = "{{asset('/ckfinder/ckfinder.html?type=Flash')}}";
-            config.filebrowserUploadUrl = "{{asset('/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files')}}";
-            config.filebrowserImageUploadUrl = "{{asset('/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images')}}";
-            config.filebrowserFlashUploadUrl = "{{asset('/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash')}}";
+            config.filebrowserBrowseUrl = "{{asset('resources/assets/plugins/ckfinder/ckfinder.html')}}";
+            config.filebrowserImageBrowseUrl = "{{asset('resources/assets/plugins/ckfinder/ckfinder.html?type=Images')}}";
+            config.filebrowserFlashBrowseUrl = "{{asset('resources/assets/plugins/ckfinder/ckfinder.html?type=Flash')}}";
+            config.filebrowserUploadUrl = "{{asset('resources/assets/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files')}}";
+            config.filebrowserImageUploadUrl = "{{asset('resources/assets/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images')}}";
+            config.filebrowserFlashUploadUrl = "{{asset('resources/assets/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash')}}";
         };
 
         //Datetime range

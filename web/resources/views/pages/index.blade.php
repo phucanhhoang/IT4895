@@ -10,7 +10,9 @@
 		@foreach($book_data['slidebook'] as $book)
 		<a href="{{asset('book/genre/'.$book->id)}}">
 			<div class="slider-area">
-				<img src="{{$book->image}}" alt="{{$book->title}}" title="{{'#htmlcaption'.$book->id}}"/>
+				<img src="{{$book->image}}" alt="{{$book->title}}" title="{{'#htmlcaption'.$book->id}}"
+					 onmouseover="this.setAttribute('org_title', this.title); this.title='';"
+					 onmouseout="this.title = this.getAttribute('org_title');"/>
 			</div>
 		</a>
 		@endforeach
@@ -46,9 +48,9 @@
 	<div class="box-item-title">New book</div>
 	@foreach($book_data['newbook'] as $book)
 	<a href="{{asset('book/genre/'.$book->id)}}" class="item col-md-3 col-sm-3">
-		{{--
-		<button href="#" class="circle"><i class="fa fa-shopping-cart"></i></button>
-		--}}
+		@if($book->sale > 0)
+		<span class="btn bg-olive btn-flat btn-sm" style="position: absolute; top: 0; right: 0">-{{$book->sale}}%</span>
+		@endif
 		<div class="item-img">
 			<img style="max-width: 100%; max-height: 100%;" src="{{$book->image}}" alt="{{$book->title}}"/>
 		</div>
@@ -67,9 +69,9 @@
 	<div class="box-item-title">Sale</div>
 	@foreach($book_data['salebook'] as $book)
 	<a href="{{asset('book/genre/'.$book->id)}}" class="item col-md-3 col-sm-3">
-		{{--
-		<button href="#" class="circle"><i class="fa fa-shopping-cart"></i></button>
-		--}}
+		@if($book->sale > 0)
+		<span class="btn bg-olive btn-flat btn-sm" style="position: absolute; top: 0; right: 0">-{{$book->sale}}%</span>
+		@endif
 		<div class="item-img">
 			<img style="max-width: 100%; max-height: 100%;" src="{{$book->image}}" alt="{{$book->title}}"/>
 		</div>

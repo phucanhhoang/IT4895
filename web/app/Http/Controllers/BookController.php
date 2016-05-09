@@ -110,7 +110,14 @@ class BookController extends Controller
 	//-------------------------User and Guest page--------------------//
 	public function show($genre_id, $id)
 	{
-		$book = Book::findOrFail($id);
+		$book = Book::join('genre', 'genre.id', '=', 'book.genre_id')
+			->join('author', 'author.id', '=', 'book.author_id')
+			->join('publisher', 'publisher.id', '=', 'book.publisher_id')
+			->select('book.id', 'title', 'genre_id', 'genre.name as genre_name', 'author_id', 'author.name as author_name',
+				'publisher_id', 'publisher.name as publisher_name',
+				'image', 'isbn', 'description_short', 'book.description', 'price', 'sale', 'quantity')
+			->findOrFail($id);
+
 		if ($genre_id != 'genre') {
 			$genre = Genre::find($genre_id);
 			if ($genre->count() > 0)

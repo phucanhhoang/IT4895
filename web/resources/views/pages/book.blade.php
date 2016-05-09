@@ -22,14 +22,27 @@ BookStore - Book
             <span class="title">{{$book->title}}</span>
         </div>
         <div class="row-border">
+            <div class="row col-md-12 col-sm-12">
+                <div class="col-md-4 col-sm-4" style="padding: 0">Thể loại: <b>{{$book->genre_name}}</b></div>
+                <div class="col-md-4 col-sm-4" style="padding: 0">Tác giả: <b>{{$book->author_name}}</b></div>
+                <div class="col-md-4 col-sm-4" style="padding: 0">NXB: {{$book->publisher_name}}</div>
+            </div>
+        </div>
+        <div class="row-border">
+            @if($book->sale > 0)
+            <span class='price-left old'>{{number_format($book->price, 0, ',', '.')}} vnđ</span>
+            <span class='price-left'>{{number_format($book->price - ($book->price * $book->sale / 100), 0, ',', '.')}} vnđ</span>
+            @else
             <span class='price-left'>{{number_format($book->price, 0, ',', '.')}} vnđ</span>
+            @endif
 			<span class='quantity-right'>
 				Số lượng:
 				<input type='text' class="form-control" id="txtQuantity" value="1"
-                       style="margin-right: 8px; width: 33px;">
+                       style="margin-right: 8px; width: 33px;position: relative;top: 1px;">
 				<input type='button' class="btn bg-olive btn-flat btn-sm" id='btnAddCart' value="Thêm vào giỏ">
 				<input type='button' class="btn bg-olive btn-flat btn-sm" id='btnBuyNow' value="Mua ngay"></span>
         </div>
+
         <div class="row-border">Tình trạng: còn {{$book->quantity}} cuốn.</div>
         <div class="row-border" style="text-align: justify">{{$book->description_short}}</div>
         <div class="row-border">
@@ -37,7 +50,6 @@ BookStore - Book
                  data-action="like" data-show-faces="true" data-share="true"></div>
         </div>
     </div>
-
     <div class="wraper col-md-12 col-sm-12">
         <ul class="nav nav-tabs">
             <li role="presentation" class="active">
@@ -48,7 +60,7 @@ BookStore - Book
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active" id="description">{{$book->description}}</div>
+            <div class="tab-pane active" id="description"><?php echo $book->description ?></div>
             <div class="tab-pane" id="comment">
                 <div class="fb-comments" data-href="http://localhost:7070/public/book/{{$book->id}}" data-width="100%"
                      data-numposts="5"></div>
@@ -70,7 +82,6 @@ BookStore - Book
 
 @section('javascript')
 <script>
-    var token = $('#_token').val();
     $('#btnAddCart').click(function (event) {
         var id = "{{$book->id}}";
         var quantity = $('#txtQuantity').val();
@@ -81,7 +92,7 @@ BookStore - Book
             type: 'POST',
             url: "{{asset('cart/add-cart')}}",
             cache: false,
-            data: {id: id, quantity: quantity, _token: token},
+            data: {id: id, quantity: quantity},
             success: function (msg) {
                 // console.log(data);
                 if (msg === 'true') {
@@ -102,7 +113,36 @@ BookStore - Book
             }
         });
     });
-
+    $('#btnBuyNow').click(function (event) {
+        var id = "{{$book->id}}";
+        var quantity = $('#txtQuantity').val();
+        $('#ajaxAlert').attr('class', 'alert');
+        $('#ajaxAlert').hide();
+        $.ajax({
+            type: 'POST',
+            url: "{{asset('cart/add-cart')}}",
+            cache: false,
+            data: {id: id, quantity: quantity},
+            success: function (msg) {
+                if (msg === 'true') {
+                    $('#ajaxAlert').attr('class', 'alert alert-success alert-dismissable fade in');
+                    $('#alert-icon').attr('class', 'icon fa fa-check');
+                    $('#alert-content').html("Thêm vào giỏ hàng thành công");
+                    $('#ajaxAlert').show();
+                    window.location = "{{asset('checkout')}}";
+                }
+                else {
+                    $('#ajaxAlert').attr('class', 'alert alert-danger alert-dismissable fade in');
+                    $('#alert-icon').attr('class', 'icon fa fa-ban');
+                    $('#alert-content').html(msg);
+                    $('#ajaxAlert').show();
+                }
+            },
+            error: function (msg) {
+                console.log(msg);
+            }
+        });
+    });
 
 </script>
 @stop

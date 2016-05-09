@@ -35,6 +35,7 @@ Route::get('book/{genre_id}/{id}', ['as' => 'showBook', 'uses' => 'BookControlle
 //Cart
 Route::post('cart/get-cart', ['as' => 'getCart', 'uses' => 'CartController@getCart']);
 Route::post('cart/add-cart', ['as' => 'addCart', 'uses' => 'CartController@addCart']);
+Route::post('cart/delete', ['as' => 'delCart', 'uses' => 'CartController@delete']);
 
 //Check out
 Route::get('checkout', ['as' => 'getCheckOut', 'uses' => 'OrderController@getCheckOut']);

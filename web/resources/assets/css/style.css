@@ -837,17 +837,9 @@ ul.notice-info li{
     margin: .2em;
 }
 
-.item-price.old {
+.item-price.old, .price-old {
     text-decoration: line-through;
     color: #f00000;
-}
-
-.price-old {
-    text-decoration: line-through;
-}
-
-.price-new {
-
 }
 
 .item .circle {
@@ -900,6 +892,12 @@ ul.notice-info li{
     line-height: 1.5;
     float: left;
     font-size: 20px;
+}
+
+.price-left.old {
+    text-decoration: line-through;
+    color: #f00000;
+    margin-right: 15px;
 }
 
 .quantity-right {

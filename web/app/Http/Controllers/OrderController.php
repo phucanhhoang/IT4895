@@ -105,8 +105,7 @@ class OrderController extends Controller
 	{
 		$_token = csrf_token();
 		$cart = Cart::join('book', 'book.id', '=', 'cart.book_id')
-			->
-			select('cart.id', 'book.title', 'cart.quantity', 'book.price')
+			->select('cart.id', 'book.title', 'cart.quantity', 'book.price', 'sale')
 			->where(function ($query) use ($_token) {
 				$query->where('user_id', '=', Auth::check() ? Auth::user()->id : 0)
 					->orWhere('remember_token', '=', $_token);

@@ -85,12 +85,21 @@ BookStore - Check out
                 <tbody>
                 <?php $total_price = 0; ?>
                 @foreach($data['cart'] as $cart)
-                <?php $total_price += $cart->price * $cart->quantity; ?>
+                <?php
+                $price = $cart->price;
+                $price_old = "";
+                if ($cart->sale > 0) {
+                    $price = $price - $price * $cart->sale / 100;
+                    $price_old = "<span class='price-old'>" . number_format($cart->price, 0, ',', '.') . "</span><br/>";
+//                        $price_old = html_entity_decode($price_old);
+                }
+                $total_price += $price * $cart->quantity;
+                ?>
                 <tr>
                     <td title="{{$cart->title}}">{{$cart->title}}</td>
                     <td style="text-align: center">{{$cart->quantity}}</td>
-                    <td>{{number_format($cart->price, 0, ',', '.')}}</td>
-                    <td>{{number_format($cart->price * $cart->quantity, 0, ',', '.')}}</td>
+                    <td><?php echo $price_old . number_format($price, 0, ',', '.'); ?></td>
+                    <td>{{number_format($price * $cart->quantity, 0, ',', '.')}}</td>
                 </tr>
                 @endforeach
                 <tr>

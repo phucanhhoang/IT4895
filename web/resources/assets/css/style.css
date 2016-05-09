@@ -619,14 +619,21 @@ ul.notice-info li{
     overflow: hidden;
 }
 
+.slider-area {
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9;
+    padding: 42px;
+}
+
 .nivoSlider {
     position: relative;
 }
 
 .nivoSlider img {
-    position: absolute;
-    top: 0px;
-    left: 0px;
+    display: block !important;
+    width: auto !important;
+    visibility: visible !important;
 }
 
 .nivoSlider a.nivo-imageLink {
@@ -654,9 +661,9 @@ ul.notice-info li{
 }
 
 .nivo-caption {
-    width: 50%;
+    width: 54%;
     position: absolute;
-    right: 30px;
+    right: 42px;
     top: 0;
     z-index: 89;
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader() !important;
@@ -671,15 +678,16 @@ ul.notice-info li{
 .nivo-caption h2 {
     margin: 0;
     padding: 71px 0 20px 0;
-    font: normal 41px/50px "Open Sans";
+    /*font: normal 41px/50px "Open Sans";*/
     color: #4d4d4d;
     text-transform: none;
+    height: 157px;
 }
 
 .nivo-caption h3 {
     margin: 0;
     padding: 10px 0 0 0;
-    font: normal 12px "Arial";
+    font-size: 12px;
     color: #4d4d4d;
     text-transform: none;
 }
@@ -710,14 +718,22 @@ ul.notice-info li{
 }
 
 .nivo-caption span.slide_price {
-    height: 42px;
+    height: 30px;
     display: block;
     float: left;
     margin: 0 35px 0 0;
     padding: 0 40px 0 0;
     border-right: 1px solid #dfdfdf;
-    font: normal 31px/42px "Open Sans";
-    color: #3698f3;
+    font-size: 1.6em;
+    /*color: #3698f3;*/
+}
+
+.nivo-caption span.slide_price.old {
+    margin: 0 15px 0 0;
+    padding: 0;
+    border: none;
+    text-decoration: line-through;
+    color: #f00000;
 }
 
 .nivo-caption a.slide_btn {
@@ -819,6 +835,11 @@ ul.notice-info li{
 .item-price {
     font-size: 14px;
     margin: .2em;
+}
+
+.item-price.old {
+    text-decoration: line-through;
+    color: #f00000;
 }
 
 .price-old {

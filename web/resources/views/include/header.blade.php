@@ -69,16 +69,19 @@
 		@endif
 
 		<!-- search form -->
+		<form method="POST" action="{{asset('search')}}">
 		<div class="form-group input-group pull-right" style="margin-top: 32px">
-			<input type="text" class="form-control"
+			<input type="hidden" id="_token" name='_token' value="{{ csrf_token() }}"/>
+			<input id="tags" name="key_word" type="text" class="form-control"
 				   style="float: right;width: 60%;height: 40px;border: 2px solid #3d9970;font-size: 1.2em;"
-				   placeholder="Bạn muốn tìm sách gì? (Nhập tên sách, tác giả, thể loại, ...)">
+				   placeholder="Bạn muốn tìm sách gì? (Nhập tên sách, tác giả, nhà xuất bản, ...)">
 			<span class="input-group-btn">
-				<button class="btn btn-search btn-flat" type="button"
+				<button class="btn btn-search btn-flat" type="submit"
 						style="height: 40px;background-color: #3d9970;color: #fff;">Tìm kiếm
 				</button>
 			</span>
 		</div>
+		</form>
 		<!-- /.search form -->
 	</div>
 </div>
@@ -152,6 +155,15 @@
 			error: function (msg) {
 
 			}
+		});
+	}
+
+
+	function search() {
+		var key_word = $('#tags').val().split(" - ")[0];
+		$.ajax({
+			type: 'POST',
+			url: "{{asset('search')}}"
 		});
 	}
 </script>

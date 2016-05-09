@@ -8,6 +8,21 @@
  			--sidebar --content
  		footer	
 */
+$books = App\Book::select('title', 'isbn')->get();
+$authors = App\Author::select('name')->get();
+$publishers = App\Publisher::select('name')->get();
+$data = array();
+foreach ($books as $book) {
+	array_push($data, $book->isbn);
+	array_push($data, $book->title . ' - tên sách');
+}
+foreach ($authors as $author) {
+	array_push($data, $author->name . ' - tác giả');
+}
+foreach ($publishers as $publisher) {
+	array_push($data, $publisher->name . ' - nhà xuất bản');
+}
+echo "<script>var availableTags = " . json_encode($data) . ";</script>";
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,6 +53,8 @@
 	<link rel="stylesheet" href="{{asset('resources/assets/css/AdminLTE.min.css')}}">
 	<!-- iCheck -->
 	<link rel="stylesheet" href="{{asset('resources/assets/plugins/iCheck/square/blue.css')}}">
+
+	<link rel="stylesheet" href="{{asset('resources/assets/plugins/jQueryUI/jquery-ui.css')}}">
 
 	<link rel="stylesheet" href="{{asset('resources/assets/css/style.css')}}"/>
 	@yield('style')
@@ -107,6 +124,7 @@
 <script src="{{asset('resources/assets/js/demo.js')}}"></script>
 <!-- iCheck -->
 <script src="{{asset('resources/assets/plugins/iCheck/icheck.min.js')}}"></script>
+<script src="{{asset('resources/assets/plugins/jQueryUI/jquery-ui.js')}}"></script>
 <script src="{{asset('resources/assets/js/back-to-top.js')}}" type="text/javascript" charset="utf-8"></script>
 <script src="{{asset('resources/assets/js/accounting.js')}}" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -129,6 +147,10 @@
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
+		});
+
+		$("#tags").autocomplete({
+			source: availableTags
 		});
 	});
 </script>

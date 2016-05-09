@@ -45,6 +45,9 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+//Search
+Route::post('search', 'HomeController@search');
+
 //----------------------- Admin zone -------------------------------//
 Route::group(['prefix' => 'adpage'], function () {
 	Route::get('/', 'HomeController@adminIndex');

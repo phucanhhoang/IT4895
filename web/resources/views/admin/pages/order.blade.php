@@ -136,12 +136,8 @@ BookStore - Order Management Page
                         </div>
                         <div class="form-group" style="width: 60%;float: left;margin-right: 28px;">
                             <label>Khoảng thời gian nhận hàng</label>
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-clock-o"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="reservationtime"
-                                       name="ship_time"/>
-                            </div>
+                            <input type="text" class="form-control" id="reservationtime"
+                                   name="ship_time"/>
                         </div>
                         <div class="form-group" style="width: 35%;display: inline-block;float: left;">
                             <label for="order_status">Trạng thái đơn hàng</label>
@@ -179,7 +175,7 @@ BookStore - Order Management Page
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Đóng</button>
-                    <button type="button" onclick="saveOrder();" class="btn btn-primary btn-flat">Lưu</button>
+                    <button type="submit" id="btnSave" class="btn btn-primary btn-flat">Lưu</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -324,6 +320,14 @@ BookStore - Order Management Page
             }
         });
     }
+
+    $('#btnSave').click(function (e) {
+        e.preventDefault();
+        var $form = $('#order_form');
+
+        if (!$form.valid()) return false;
+        saveOrder();
+    });
 
     function saveOrder() {
         $('#ajaxAlert').hide();

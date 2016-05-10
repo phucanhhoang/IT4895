@@ -142,29 +142,36 @@ class OrderController extends Controller
 				$customer->save();
 			}
 
-			$order = new Order;
-			$order->customer_id = $customer->id;
-			$order->note = $request->note;
-			$order->ship_time = $request->ship_time;
-			$check = $order->save();
-
 			$_token = csrf_token();
 			$carts = Cart::where(function ($query) use ($_token) {
 				$query->where('user_id', '=', Auth::check() ? Auth::user()->id : 0)
 					->orWhere('remember_token', '=', $_token);
 			});
-			foreach ($carts->get() as $cart) {
-				$order_detail = new OrderDetail;
-				$order_detail->order_id = $order->id;
-				$order_detail->book_id = $cart->book_id;
-				$order_detail->quantity = $cart->quantity;
-				$order_detail->save();
+			if ($carts->count() > 0) {
+				$order = new Order;
+				$order->customer_id = $customer->id;
+				$order->note = $request->note;
+				$order->ship_time = $request->ship_time;
+				$order->save();
+
+				foreach ($carts->get() as $cart) {
+					$order_detail = new OrderDetail;
+					$order_detail->order_id = $order->id;
+					$order_detail->book_id = $cart->book_id;
+					$order_detail->quantity = $cart->quantity;
+					$order_detail->save();
+				}
+				$carts->delete();
+				return redirect('/')
+					->with('message', 'Đặt hàng thành công. Chúng tôi sẽ sớm liên lạc với bạn!')
+					->with('alert-class', 'alert-success')
+					->with('fa-class', 'fa-check');
+			} else {
+				return redirect('/checkout')
+					->with('message', 'Không có hàng trong giỏ.')
+					->with('alert-class', 'alert-warning')
+					->with('fa-class', 'fa-warning');
 			}
-			$carts->delete();
-			return redirect('/')
-				->with('message', 'Đặt hàng thành công. Chúng tôi sẽ sớm liên lạc với bạn!')
-				->with('alert-class', 'alert-success')
-				->with('fa-class', 'fa-check');
 } catch (ValidationException $e) {
 			return redirect('/checkout')
 				->with('message', 'Xảy ra lỗi khi lưu đơn hàng, vui lòng thử lại!!!')

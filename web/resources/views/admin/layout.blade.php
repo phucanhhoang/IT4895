@@ -69,6 +69,8 @@
 </div>
 <!-- jQuery 2.1.4 -->
 <script src="{{asset('resources/assets/plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
+<!--jQuery validate-->
+<script src="{{asset('resources/assets/plugins/jQueryValidate/jquery.validate.js')}}"></script>
 <!-- Bootstrap 3.3.5 -->
 <script src="{{asset('resources/assets/bootstrap/js/bootstrap.min.js')}}"></script>
 <!-- Select2 -->
@@ -151,6 +153,39 @@
         $('#sidebar-menu').find("a[href='{{URL::current()}}']").parent().parent().addClass('menu-open');
         $('#sidebar-menu').find("a[href='{{URL::current()}}']").parent().parent().attr('style', 'display: block');
         $('#sidebar-menu').find("a[href='{{URL::current()}}']").parent().addClass('active');
+
+        //Validate
+        jQuery.validator.addMethod("phoneno", function (phone_number, element) {
+            phone_number = phone_number.replace(/\s+/g, "");
+            return this.optional(element) || phone_number.length > 9 &&
+                phone_number.match(/^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/);
+        }, "Please specify a valid phone number");
+        $('#order_form').validate({
+            rules: {
+                name: 'required',
+                phone: {
+                    required: true,
+                    phoneno: true,
+                    minlength: 10,
+                    maxlength: 11
+                },
+                address: 'required',
+                ship_time: 'required',
+                order_status: 'required'
+            }
+        });
+        $('#book_form').validate({
+            rules: {
+                isbn: 'digits',
+                price: 'digits',
+                quantity: 'digits',
+                sale: 'digits',
+                'description': {
+                    required: true
+                }
+            },
+            ignore: []
+        });
     });
 
 

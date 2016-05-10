@@ -7,6 +7,12 @@
     font-weight: normal;
 }
 
+.error {
+    color: #f00000;
+    font-weight: normal;
+    border-color: #f00000;
+}
+
 /*Table style*/
 .table-click > tbody > tr:hover {
     cursor: pointer;

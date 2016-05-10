@@ -96,11 +96,12 @@ BookStore - Order Management Page
                         <input type="hidden" id="author_id" name="author_id"/>
                         <div class="form-group" style="width: 60%;float: left;margin-right: 28px;">
                             <label for="name">Tên tác giả</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Tên thể loại"/>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Tên thể loại"
+                                   required/>
                         </div>
                         <div class="form-group" style="width: 35%;display: inline-block;float: left;">
                             <label for="country">Quốc tịch</label>
-                            <select id="country" name="country" class="form-control" style="width: 100%">
+                            <select id="country" name="country" class="form-control" style="width: 100%" required>
                                 <option value=""></option>
                                 @foreach(App\Enum\CountryArray::COUNTRY as $country)
                                 <option value="{{$country}}">{{$country}}</option>
@@ -109,13 +110,13 @@ BookStore - Order Management Page
                         </div>
                         <div class="form-group">
                             <label for="profile">Sơ lược tiểu sử</label>
-                            <textarea class="form-control" id="profile" name="profile"></textarea>
+                            <textarea class="form-control" id="profile" name="profile" required></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Đóng</button>
-                    <button type="button" onclick="saveAuthor();" class="btn btn-primary btn-flat">Lưu</button>
+                    <button type="button" id="btnSave" class="btn btn-primary btn-flat">Lưu</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -212,6 +213,14 @@ BookStore - Order Management Page
             }
         });
     }
+
+    $('#btnSave').click(function (e) {
+        e.preventDefault();
+        var $form = $('#author_form');
+
+        if (!$form.valid()) return false;
+        saveAuthor();
+    });
 
     function saveAuthor() {
         $('#ajaxAlert').hide();

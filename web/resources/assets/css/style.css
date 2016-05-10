@@ -60,6 +60,10 @@ a {
     color: #353535;
 }
 
+.error {
+    color: #f00000;
+}
+
 /*Form control*/
 input[type=text].form-control, select.form-control {
     font-size: inherit;

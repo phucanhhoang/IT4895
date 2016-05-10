@@ -43,20 +43,23 @@ BookStore - Check out
             @else
             <div class="form-group">
                 <label for="txtNguoiNhan">Người nhận</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên"/>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Họ tên"
+                       value="{{old('name')}}"/>
             </div>
             <div class="form-group">
                 <label for="txtDiaChi">Địa chỉ</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="Địa chỉ nhận hàng"/>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Địa chỉ nhận hàng"
+                       value="{{old('address')}}"/>
             </div>
             <div class="form-group">
                 <label for="txtSDT">Số điện thoại</label>
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="Số điện thoại người nhận"/>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="Số điện thoại người nhận"
+                       value="{{old('phone')}}"/>
             </div>
             @endif
             <div class="form-group">
                 <label for="taGhiChu">Ghi chú</label>
-                <textarea class="form-control" id="note" name="note"></textarea>
+                <textarea class="form-control" id="note" name="note" value="{{old('note')}}"></textarea>
             </div>
         </div>
         <div class="col-md-5 col-sm-5" style="padding: 0 0 0 30px">
@@ -67,7 +70,8 @@ BookStore - Check out
                 <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-clock-o"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="reservationtime" name="ship_time"/>
+                    <input type="text" class="form-control pull-right" id="reservationtime" name="ship_time"
+                           value="{{old('ship_time')}}"/>
                 </div>
                 <!-- /.input group -->
             </div>

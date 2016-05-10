@@ -85,7 +85,7 @@ echo "<script>var availableTags = " . json_encode($data) . ";</script>";
 	</div>
 </div>
 @if (session('message'))
-<div id="myAlert" class="alert {{session('alert-class')}} alert-dismissable fade in">
+<div id="myAlert" class="alert {{session('alert-class')}} alert-dismissable fade in" style="visibility: hidden">
 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 	<i class="icon fa {{session('fa-class')}}"></i>
 	{{ session('message') }}
@@ -136,11 +136,11 @@ echo "<script>var availableTags = " . json_encode($data) . ";</script>";
 		}
 		//Set style cho alert
 		var window_width = $(window).width();
-		var alert_width = 400;
+		var alert_width = 500;
 		if (window_width < alert_width) {
 			alert_width = window_width - 20;
 		}
-		$('#myAlert').attr('style', 'width:' + alert_width + 'px;left:' + (window_width - alert_width) / 2 + 'px');
+		$('#myAlert').attr('style', 'visibility:visible; width:' + alert_width + 'px;left:' + (window_width - alert_width) / 2 + 'px');
 		$('#ajaxAlert').attr('style', 'width:' + alert_width + 'px;display:none;left:' + (window_width - alert_width) / 2 + 'px');
 
 		$.ajaxSetup({

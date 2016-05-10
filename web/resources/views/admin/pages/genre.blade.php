@@ -93,17 +93,18 @@ BookStore - Order Management Page
                         <input type="hidden" id="genre_id" name="genre_id"/>
                         <div class="form-group">
                             <label for="name">Tên thể loại</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Tên thể loại"/>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Tên thể loại"
+                                   required/>
                         </div>
                         <div class="form-group">
                             <label for="description">Mô tả</label>
-                            <textarea class="form-control" id="description" name="description"></textarea>
+                            <textarea class="form-control" id="description" name="description" required></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Đóng</button>
-                    <button type="button" onclick="saveGenre();" class="btn btn-primary btn-flat">Lưu</button>
+                    <button type="button" id="btnSave" class="btn btn-primary btn-flat">Lưu</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -198,6 +199,14 @@ BookStore - Order Management Page
             }
         });
     }
+
+    $('#btnSave').click(function (e) {
+        e.preventDefault();
+        var $form = $('#genre_form');
+
+        if (!$form.valid()) return false;
+        saveGenre();
+    });
 
     function saveGenre() {
         $('#ajaxAlert').hide();

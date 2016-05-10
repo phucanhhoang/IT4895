@@ -38,7 +38,7 @@ BookStore - Book
 			<span class='quantity-right'>
 				Số lượng:
 				<input type='text' class="form-control" id="txtQuantity" value="1"
-                       style="margin-right: 8px; width: 33px;position: relative;top: 1px;">
+                       style="margin-right: 8px; width: 40px;position: relative;top: 1px;">
 				<input type='button' class="btn bg-olive btn-flat btn-sm" id='btnAddCart' value="Thêm vào giỏ">
 				<input type='button' class="btn bg-olive btn-flat btn-sm" id='btnBuyNow' value="Mua ngay"></span>
         </div>
@@ -84,10 +84,10 @@ BookStore - Book
 <script>
     $('#btnAddCart').click(function (event) {
         var id = "{{$book->id}}";
-        var quantity = $('#txtQuantity').val();
+        var quantity = parseInt($('#txtQuantity').val());
         $('#ajaxAlert').attr('class', 'alert');
         $('#ajaxAlert').hide();
-
+        if (quantity > 0) {
         $.ajax({
             type: 'POST',
             url: "{{asset('cart/add-cart')}}",
@@ -112,12 +112,20 @@ BookStore - Book
                 console.log(msg);
             }
         });
+        }
+        else {
+            $('#ajaxAlert').attr('class', 'alert alert-warning alert-dismissable fade in');
+            $('#alert-icon').attr('class', 'icon fa fa-warning');
+            $('#alert-content').html("Số lượng đặt hàng là dạng số và lớn hơn 0. Vui lòng nhập lại!");
+            $('#ajaxAlert').show();
+        }
     });
     $('#btnBuyNow').click(function (event) {
         var id = "{{$book->id}}";
-        var quantity = $('#txtQuantity').val();
+        var quantity = parseInt($('#txtQuantity').val());
         $('#ajaxAlert').attr('class', 'alert');
         $('#ajaxAlert').hide();
+        if (quantity > 0) {
         $.ajax({
             type: 'POST',
             url: "{{asset('cart/add-cart')}}",
@@ -142,6 +150,13 @@ BookStore - Book
                 console.log(msg);
             }
         });
+        }
+        else {
+            $('#ajaxAlert').attr('class', 'alert alert-warning alert-dismissable fade in');
+            $('#alert-icon').attr('class', 'icon fa fa-warning');
+            $('#alert-content').html("Số lượng đặt hàng là dạng số và lớn hơn 0. Vui lòng nhập lại!");
+            $('#ajaxAlert').show();
+        }
     });
 
 </script>

@@ -113,13 +113,13 @@ BookStore - Order Management Page
                                 <div class="form-group">
                                     <label for="title">Tên sách</label>
                                     <input type="text" class="form-control" id="title" name="title"
-                                           placeholder="Tên sách"/>
+                                           placeholder="Tên sách" required/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="genre_id">Thể loại</label>
-                                    <select id="genre_id" name="genre_id" class="form-control select2"
+                                    <select id="genre_id" name="genre_id" required class="form-control select2"
                                             style="width: 100%;">
                                         <option value="" selected="selected">-- Thể loại sách --</option>
                                         @foreach($data['genres'] as $genre)
@@ -135,7 +135,7 @@ BookStore - Order Management Page
                                 <div class="form-group">
                                     <label for="publisher_id">Nhà xuất bản</label>
                                     <select id="publisher_id" name="publisher_id" class="form-control select2"
-                                            style="width: 100%;">
+                                            style="width: 100%;" required>
                                         <option value="" selected="selected">-- Nhà xuất bản --</option>
                                         @foreach($data['publishers'] as $publisher)
                                         <option value="{{$publisher->id}}" data-name="{{$publisher->name}}">
@@ -149,7 +149,7 @@ BookStore - Order Management Page
                                 <div class="form-group">
                                     <label for="author_id">Tác giả</label>
                                     <select id="author_id" name="author_id" class="form-control select2"
-                                            style="width: 100%;">
+                                            style="width: 100%;" required>
                                         <option value="" selected="selected">-- Tác giả --</option>
                                         @foreach($data['authors'] as $author)
                                         <option value="{{$author->id}}" data-name="{{$author->name}}">
@@ -166,7 +166,7 @@ BookStore - Order Management Page
                                     <label for="image">Đường dẫn ảnh</label>
                                     <div class="input-group pull-right" style="">
                                         <input type="text" class="form-control" id="image" name="image"
-                                               placeholder="Đường dẫn ảnh">
+                                               placeholder="Đường dẫn ảnh" required>
                                         <div class="input-group-btn">
                                             <button type="button" onclick="BrowseServer();"
                                                     class="btn btn-default btn-flat">Duyệt...
@@ -178,7 +178,8 @@ BookStore - Order Management Page
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="isbn">ISBN</label>
-                                    <input type="text" class="form-control" id="isbn" name="isbn" placeholder="ISBN"/>
+                                    <input type="text" class="form-control" id="isbn" name="isbn" placeholder="ISBN"
+                                           required/>
                                 </div>
                             </div>
                         </div>
@@ -186,21 +187,22 @@ BookStore - Order Management Page
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="price">Giá</label>
-                                    <input type="text" class="form-control" id="price" name="price" placeholder="Giá"/>
+                                    <input type="text" class="form-control" id="price" name="price" placeholder="Giá"
+                                           required/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="quantity">Số lượng</label>
                                     <input type="text" class="form-control" id="quantity" name="quantity"
-                                           placeholder="Số lượng"/>
+                                           placeholder="Số lượng" required/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="sale">Sale (%)</label>
                                     <input type="text" class="form-control" id="sale" name="sale"
-                                           placeholder="Giảm giá ?%"/>
+                                           placeholder="Giảm giá %"/>
                                 </div>
                             </div>
                         </div>
@@ -208,17 +210,17 @@ BookStore - Order Management Page
                         <div class="form-group">
                             <label for="description_short">Mô tả ngắn</label>
                             <textarea rows="3" class="form-control" id="description_short"
-                                      name="description_short"></textarea>
+                                      name="description_short" required></textarea>
                         </div>
                         <div class="form-group">
                             <label for="description">Mô tả chi tiết</label>
-                            <textarea class="form-control" id="description" name="description"></textarea>
+                            <textarea class="form-control" id="description" name="description" required></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-flat" data-dismiss="modal">Đóng</button>
-                    <button type="button" onclick="saveBook();" class="btn btn-primary btn-flat">Lưu</button>
+                    <button type="button" id="btnSave" class="btn btn-primary btn-flat">Lưu</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -229,7 +231,13 @@ BookStore - Order Management Page
 @stop
 
 @section('style')
-
+<style>
+    #image-error {
+        position: absolute;
+        top: 30px;
+        left: 0px;
+    }
+</style>
 @stop
 
 @section('javascript')
@@ -256,6 +264,11 @@ BookStore - Order Management Page
 
     function resetBookForm() {
         resetForm('book_form');
+        $(".error").attr('style', "border-color: #ccc; color: inherit;");
+        $('label.error').hide();
+        $('#select2-genre_id-container').html('');
+        $('#select2-publisher_id-container').html('');
+        $('#select2-author_id-container').html('');
     }
 
     function openBookDialog() {
@@ -334,6 +347,14 @@ BookStore - Order Management Page
             }
         });
     }
+
+    $('#btnSave').click(function (e) {
+        e.preventDefault();
+        var $form = $('#book_form');
+
+        if (!$form.valid()) return false;
+        saveBook();
+    });
 
     function saveBook() {
         $('#ajaxAlert').hide();

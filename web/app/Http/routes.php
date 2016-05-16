@@ -41,6 +41,10 @@ Route::post('cart/delete', ['as' => 'delCart', 'uses' => 'CartController@delete'
 Route::get('checkout', ['as' => 'getCheckOut', 'uses' => 'OrderController@getCheckOut']);
 Route::post('checkout', ['as' => 'postCheckOut', 'uses' => 'OrderController@postCheckOut']);
 
+//Change pass
+Route::get('user/changepass', ['as' => 'getChangePass', 'uses' => 'UserController@getChangePass']);
+Route::post('user/changepass', ['as' => 'postChangePass', 'uses' => 'UserController@postChangePass']);
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

@@ -9,6 +9,7 @@ use App\Http\Requests;
 
 use App\User;
 use App\Customer;
+use App\Http\Requests\ChangePassRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -100,5 +101,39 @@ class UserController extends Controller
 			echo 'false';
 		} else
 			echo 'true';
+	}
+
+	public function getChangePass()
+	{
+		return view('auth.changepass');
+	}
+
+	public function postChangePass(ChangePassRequest $request)
+	{
+		if (Auth::check()) {
+			if (Hash::check($request->cur_pass, Auth::user()->password)) {
+				$user = Auth::user();
+				$user->password = Hash::make($request->password);
+				$check = $user->save();
+				if ($check)
+					return redirect()->away($request->rtn_url)
+						->with('message', 'Đổi mật khẩu thành công.')
+						->with('alert-class', 'alert-success')
+						->with('fa-class', 'fa-check');
+				else
+					return redirect()->away($request->rtn_url)
+						->with('message', 'Có lỗi xảy ra. Vui lòng thử lại sau!')
+						->with('alert-class', 'alert-danger')
+						->with('fa-class', 'fa-ban');
+			} else
+				return redirect('user/changepass')
+					->with('message', 'Mật khẩu không đúng. Vui lòng thử lại!')
+					->with('alert-class', 'alert-danger')
+					->with('fa-class', 'fa-ban');
+		} else
+			return redirect('auth/login')
+				->with('message', 'Bạn chưa đăng nhập. Vui lòng đăng nhập!')
+				->with('alert-class', 'alert-warning')
+				->with('fa-class', 'fa-warning');
 	}
 }

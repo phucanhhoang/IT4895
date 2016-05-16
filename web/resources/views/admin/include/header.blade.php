@@ -19,7 +19,7 @@
             <ul class="nav navbar-nav">
                 <!-- User Account: style can be found in dropdown.less -->
                 <li>
-                    <a href="#">
+                    <a href="{{asset('user/changepass')}}" title="Đổi mật khẩu">
                         <span>Xin chào, <b>{{Auth::user()->username}}</b></span>
                     </a>
                 </li>

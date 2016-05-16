@@ -9,6 +9,7 @@ use App\User;
 use App\Customer;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+
 use Hash;
 use URL;
 
@@ -143,4 +144,5 @@ class AuthController extends Controller {
 				->with('fa-class', 'fa-ban');
 		}
 	}
+
 }

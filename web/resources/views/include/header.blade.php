@@ -34,7 +34,7 @@
 		@if(Auth::user()->userable_type == 'customer')
 		<ul class="hello-user navbar-right">
 			<li>
-				<a href="#">
+				<a href="{{asset('user/changepass')}}" title="Đổi mật khẩu">
 					Xin chào, <b>{{App\Customer::find(Auth::user()->userable_id)->name}}</b>
 				</a>
 			</li>
@@ -52,7 +52,7 @@
 		@else
 		<ul class="hello-user navbar-right">
 			<li>
-				<a href="#">
+				<a href="{{asset('user/changepass')}}" title="Đổi mật khẩu">
 					Xin chào, <b>{{Auth::user()->username}}</b>
 				</a>
 			</li>

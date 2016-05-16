@@ -26,6 +26,20 @@ class OrderController extends Controller
 		return view('admin.pages.order')->with('orders', $allOrders);
 	}
 
+	public function search(Request $request)
+	{
+		$key_word = $request->key;
+		$orders = Order::join('customer', 'customer.id', '=', 'order.customer_id')
+			->select('order.id', 'name', 'phone', 'address', 'ship_time', 'note', 'shipped', 'seen', 'order.created_at')
+			->where('order.deleted', '=', 0)
+			->where(function ($query) use ($key_word) {
+				$query->where('name', 'like', '%' . $key_word . '%')
+					->orWhere('phone', 'like', $key_word);
+			})
+			->orderBy('created_at', 'desc')->get();
+		return $orders;
+	}
+
 	public function getOrderByStatus(Request $request)
 	{
 		$orderStatus = $request->orderStatus;
@@ -135,11 +149,14 @@ class OrderController extends Controller
 					$customer->save();
 				}
 			} else {
-				$customer = new Customer;
-				$customer->name = $request->name;
-				$customer->address = $request->address;
-				$customer->phone = $request->phone;
-				$customer->save();
+				$customer = Customer::where('phone', '=', $request->phone)->first();
+				if ($customer->count() == 0) {
+					$customer = new Customer;
+					$customer->name = $request->name;
+					$customer->address = $request->address;
+					$customer->phone = $request->phone;
+					$customer->save();
+				}
 			}
 
 			$_token = csrf_token();

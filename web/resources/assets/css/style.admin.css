@@ -7,10 +7,9 @@
     font-weight: normal;
 }
 
-.error {
+label.error {
     color: #f00000;
     font-weight: normal;
-    border-color: #f00000;
 }
 
 /*Table style*/
@@ -27,7 +26,7 @@
 }
 
 /*Form control*/
-input[type=text].form-control, select.form-control {
+input[type=text].form-control, input[type=email].form-control, input[type=password].form-control, select.form-control {
     font-size: inherit;
     height: 30px;
     display: inline-block;

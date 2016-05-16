@@ -43,9 +43,11 @@ BookStore - Order Management Page
                 <option value="{{App\Enum\OrderStatus::DA_GUI_HANG}}">Đã gửi hàng</option>
             </select>
             <div class="input-group pull-right" style="width: 25%; margin-right: 20px">
-                <input type="text" class="form-control" placeholder="Nhập tên khách hàng hoặc SĐT">
+                <input type="text" id="txtSearch" onkeypress="search_keypress(event);" class="form-control"
+                       placeholder="Nhập tên khách hàng hoặc SĐT">
                 <div class="input-group-btn">
-                    <button type="button" class="btn btn-primary btn-flat"><i class="fa fa-search"></i></button>
+                    <button type="button" class="btn btn-primary btn-flat" onclick="search_click();"><i
+                            class="fa fa-search"></i></button>
                 </div><!-- /btn-group -->
             </div>
 
@@ -365,6 +367,37 @@ BookStore - Order Management Page
                     $('#alert-content').html(msg);
                     $('#ajaxAlert').show();
                 }
+            }
+        });
+    }
+
+    function search_keypress(e) {
+        if (e.keyCode == 13)
+            search_click();
+    }
+    function search_click() {
+        var key = $("#txtSearch").val();
+        $.ajax({
+            type: "POST",
+            url: "{{asset('adpage/order/search')}}",
+            cache: false,
+            data: {key: key},
+            success: function (data) {
+                $("#order_table > tbody").html("");
+                var stt = 0;
+                for (var i = 0; i < data.length; i++) {
+                    stt++;
+                    var tr_class = data[i]['seen'] == 0 ? 'text-slim-bold' : '';
+                    var order_status = data[i]['shipped'] == 0 ? 'Chưa gửi hàng' : (data[i]['shipped'] == 1 ? 'Đang gửi hàng' : 'Đã gửi hàng');
+                    $("#order_table > tbody").append("<tr id='" + data[i]['id'] + "' onclick='editOrder(this);' " +
+                        "class='" + tr_class + "'><td>" +
+                        "<div class='checkbox icheck' style='margin-top: 0'><label><input id=" + data[i]['id'] + " type='checkbox' />" +
+                        "</label></div></td><td>" + stt + "</td> <td>" + data[i]['name'] + "</td> " +
+                        "<td>" + data[i]['phone'] + "</td> <td class='hidden-xs'>" + data[i]['address'] + "</td>" +
+                        "<td class='hidden-xs'>" + data[i]['ship_time'] + "</td> <td class='hidden-xs'>" + data[i]['note'] + "</td>" +
+                        "<td>" + order_status + "</td></tr>");
+                }
+                setCheckboxStyle();
             }
         });
     }

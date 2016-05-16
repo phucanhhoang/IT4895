@@ -27,11 +27,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public $timestamps = true;
 
-    protected $fillable = array('username', 'email', 'banned');
+    protected $fillable = array('username', 'email', 'banned', 'userable_id', 'userable_type');
 
     protected $guarded = array('id', 'password');
 
-    protected $hidden = array('password', 'remember_token', 'userable_id', 'userable_type');
+    protected $hidden = array('password', 'remember_token');
 
     public static $rules_login = array(
         'username' => 'required|alpha_num|between:3,32',

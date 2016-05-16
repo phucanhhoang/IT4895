@@ -59,6 +59,7 @@ Route::group(['prefix' => 'adpage'], function () {
 	Route::post('order/info', 'OrderController@orderInfo'); //get info order
 	Route::post('order/delorder', 'OrderController@delOrder'); //delete order
 	Route::post('order/saveOrder', 'OrderController@saveOrder'); //save info order
+	Route::post('order/search', 'OrderController@search');
 
 	//Author
 	Route::get('author', ['as' => 'getAuthor', 'uses' => 'AuthorController@getAuthor']);
@@ -86,9 +87,19 @@ Route::group(['prefix' => 'adpage'], function () {
 
 	//Customer
 	Route::get('customer', ['as' => 'getCustomer', 'uses' => 'CustomerController@getCustomer']);
+	Route::post('customer/info', 'CustomerController@customerInfo'); //get info customer
+	Route::post('customer/delCustomer', 'CustomerController@delCustomer'); //delete customer
+	Route::post('customer/saveCustomer', 'CustomerController@saveCustomer'); //save info customer
 
 	//Account
 	Route::get('account', ['as' => 'getAccount', 'uses' => 'UserController@getAccount']);
+	Route::post('account/info', 'UserController@accountInfo'); //get info account
+	Route::post('account/delAccount', 'UserController@delAccount'); //delete account
+	Route::post('account/saveAccount', 'UserController@saveAccount'); //save info account
+
+	//check exist
+	Route::post('checkexist/email', 'UserController@checkEmail');
+	Route::post('checkexist/username', 'UserController@checkUsername');
 
 	//Statistic
 	Route::get('statistic', ['as' => 'getStatistic', 'uses' => 'HomeController@getStatistic']);

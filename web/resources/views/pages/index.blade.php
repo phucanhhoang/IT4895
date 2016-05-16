@@ -10,7 +10,7 @@
 		@foreach($book_data['slidebook'] as $book)
 		<a href="{{asset('book/genre/'.$book->id)}}">
 			<div class="slider-area">
-				<img src="{{$book->image}}" alt="{{$book->title}}" title="{{'#htmlcaption'.$book->id}}"
+				<img src="{{asset($book->image)}}" alt="{{$book->title}}" title="{{'#htmlcaption'.$book->id}}"
 					 onmouseover="this.setAttribute('org_title', this.title); this.title='';"
 					 onmouseout="this.title = this.getAttribute('org_title');"/>
 			</div>
@@ -52,7 +52,7 @@
 		<span class="btn bg-olive btn-flat btn-sm" style="position: absolute; top: 0; right: 0">-{{$book->sale}}%</span>
 		@endif
 		<div class="item-img">
-			<img style="max-width: 100%; max-height: 100%;" src="{{$book->image}}" alt="{{$book->title}}"/>
+			<img style="max-width: 100%; max-height: 100%;" src="{{asset($book->image)}}" alt="{{$book->title}}"/>
 		</div>
 		<div class="item-title">{{$book->title}}</div>
 		@if($book->sale > 0)
@@ -73,7 +73,7 @@
 		<span class="btn bg-olive btn-flat btn-sm" style="position: absolute; top: 0; right: 0">-{{$book->sale}}%</span>
 		@endif
 		<div class="item-img">
-			<img style="max-width: 100%; max-height: 100%;" src="{{$book->image}}" alt="{{$book->title}}"/>
+			<img style="max-width: 100%; max-height: 100%;" src="{{asset($book->image)}}" alt="{{$book->title}}"/>
 		</div>
 		<div class="item-title">{{$book->title}}</div>
 		<span class="item-price old">{{number_format($book->price, 0, ',', '.')}} vnđ</span>

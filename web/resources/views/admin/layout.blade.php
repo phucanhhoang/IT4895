@@ -186,6 +186,60 @@
             },
             ignore: []
         });
+        $("#customer_form").validate({
+            rules: {
+                name: 'required',
+                address: 'required',
+                phone: 'required',
+                email: {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: "{{asset('adpage/checkexist/email')}}",
+                        type: 'POST'
+                    }
+                }
+            },
+            messages: {
+                email: {
+                    remote: "Email already in use!"
+                }
+            }
+        });
+        $("#account_form").validate({
+            rules: {
+                username: {
+                    required: true,
+                    remote: {
+                        url: "{{asset('adpage/checkexist/username')}}",
+                        type: 'POST'
+                    }
+                },
+                password: {
+                    minlength: 8
+                },
+                retype_password: {
+                    equalTo: "#password",
+                    minlength: 8
+                },
+                email: {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: "{{asset('adpage/checkexist/email')}}",
+                        type: 'POST'
+                    }
+                }
+            },
+            messages: {
+                username: {
+                    remote: "Account already in use!"
+                },
+                email: {
+                    remote: "Email already in use!"
+                }
+            }
+        });
     });
 
 

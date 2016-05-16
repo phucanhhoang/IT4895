@@ -60,7 +60,7 @@ class AuthController extends Controller {
 
 		if ($this->auth->attempt($userdata, $remember = $r)) {
 			if ($this->auth->user()->userable_type == 'customer') {
-				if ($this->auth->user()->banned == 0) {
+				if ($this->auth->user()->banned == 0 && $this->auth->user()->deleted == 0) {
 					return redirect()->away($request->rtn_url);
 				} else {
 					$this->auth->logout();
@@ -69,8 +69,19 @@ class AuthController extends Controller {
 						->with('alert-class', 'alert-warning')
 						->with('fa-class', 'fa-warning');
 				}
-			} else
+			} else if ($this->auth->user()->userable_type == 'admin')
 				return redirect('/adpage');
+			else {
+				if ($this->auth->user()->banned == 0 && $this->auth->user()->deleted == 0) {
+					return redirect('/adpage');
+				} else {
+					$this->auth->logout();
+					return redirect()->away($request->rtn_url)
+						->with('message', 'Xin lỗi! Tài khoản của bạn đang bị khóa.')
+						->with('alert-class', 'alert-warning')
+						->with('fa-class', 'fa-warning');
+				}
+			}
 		}
 		else{
 			return redirect('auth/login')

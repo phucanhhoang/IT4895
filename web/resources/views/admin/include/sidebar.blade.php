@@ -32,6 +32,7 @@
                     <li><a href="{{asset('adpage/book')}}"><i class="fa fa-circle-o"></i> <span>Sách</span></a></li>
                 </ul>
             </li>
+            @if(Auth::user()->userable_type == 'admin')
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-users"></i> <span>Quản lý tài khoản</span>
@@ -44,11 +45,18 @@
                     </li>
                 </ul>
             </li>
+            @else
             <li>
-                <a href="{{asset('adpage/statistic')}}">
-                    <i class="fa fa-line-chart"></i> <span>Thống kê doanh số</span>
+                <a href="{{asset('adpage/customer')}}">
+                    <i class="fa fa-users"></i> <span>Quản lý khách hàng</span>
                 </a>
             </li>
+            @endif
+            <!--            <li>-->
+            <!--                <a href="{{asset('adpage/statistic')}}">-->
+            <!--                    <i class="fa fa-line-chart"></i> <span>Thống kê doanh số</span>-->
+            <!--                </a>-->
+            <!--            </li>-->
             <!--      <li>-->
             <!--        <a href="{{asset('adpage/trash')}}">-->
             <!--          <i class="fa fa-trash"></i> <span>Thùng rác</span>-->

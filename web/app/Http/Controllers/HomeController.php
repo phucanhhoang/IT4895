@@ -22,7 +22,34 @@ class HomeController extends Controller
 				$countNewOrder = Order::where('shipped', '=', 0)->where('seen', '=', 0)->where('deleted', '=', 0)->count();
 				$countNewCustomer = Customer::where('created_at', '>', date('Y-m-d'))->where('created_at', '<', date('Y-m-d H:i:s'))->count();
 				$countSale = Book::where('sale', '>', 0)->count();
-				return view('admin.pages.index', compact('countNewOrder', 'countNewCustomer', 'countSale'));
+				$books_sale = Book::join('genre', 'genre.id', '=', 'book.genre_id')
+					->join('author', 'author.id', '=', 'book.author_id')
+					->join('publisher', 'publisher.id', '=', 'book.publisher_id')
+					->select('book.id', 'title', 'genre_id', 'genre.name as genre_name', 'author_id', 'author.name as author_name',
+						'publisher_id', 'publisher.name as publisher_name',
+						'image', 'isbn', 'description_short', 'price', 'sale', 'quantity')
+					->where('book.deleted', '=', 0)
+					->where('book.sale', '>', 0)
+					->get();
+
+				$books_selling = Book::join('genre', 'genre.id', '=', 'book.genre_id')
+					->join('author', 'author.id', '=', 'book.author_id')
+					->join('publisher', 'publisher.id', '=', 'book.publisher_id')
+					->join('order_detail', 'order_detail.book_id', '=', 'book.id')
+					->selectRaw('book.id, title, genre_id, genre.name as genre_name,
+					author_id, author.name as author_name, publisher_id, publisher.name as publisher_name,
+					image, isbn, description_short, price, sale, book.quantity, SUM(order_detail.quantity) as sum_quantity')
+					->where('book.deleted', '=', 0)
+					->groupBy('book_id')
+					->orderBy('sum_quantity', 'desc')
+					->take(10)
+					->get();
+
+				$data = array(
+					'books_sale' => $books_sale,
+					'books_selling' => $books_selling
+				);
+				return view('admin.pages.index', compact('countNewOrder', 'countNewCustomer', 'countSale'))->with('data', $data);
 			}
 		} else
 			return view('errors.404');

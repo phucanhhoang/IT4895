@@ -63,7 +63,7 @@ BookStore - Admin pages
                 <div class="icon">
                     <i class="fa fa-fw fa-dollar"></i>
                 </div>
-                <a href="{{asset('adpage/book')}}" class="small-box-footer">
+                <a href="#" onclick="openBookSaleDialog();" class="small-box-footer">
                     Chi tiết <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -81,7 +81,7 @@ BookStore - Admin pages
                 <div class="icon">
                     <i class="fa fa-fw fa-line-chart"></i>
                 </div>
-                <a href="{{asset('adpage/statistic')}}" class="small-box-footer">
+                <a href="#" onclick="openBookSallingDialog();" class="small-box-footer">
                     Chi tiết <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -96,12 +96,110 @@ BookStore - Admin pages
                 <div class="icon">
                     <i class="fa fa-fw fa-heart"></i>
                 </div>
-                <a href="{{asset('adpage/statistic')}}" class="small-box-footer">
+                <a href="#" class="small-box-footer">
                     Chi tiết <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div><!-- ./col -->
     </div>
+
+    <!-- book sale dialog -->
+    <div id="booksale_dialog" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 id="dialog_title" class="modal-title">Danh sách sách đang giảm giá</h4>
+                </div>
+                <div class="modal-body">
+                    <table id="booksale_table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th style="width: 10%">Ảnh bìa</th>
+                            <th style="width: 32%">Tên sách</th>
+                            <th style="width: 12%">Thể loại</th>
+                            <th style="width: 15%">Tác giả</th>
+                            <th style="width: 10%">Giá (vnđ)</th>
+                            <th style="">Sale (%)</th>
+                            <th style="">Số lượng</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $stt = 0;
+                        foreach ($data['books_sale'] as $book_sale) {
+                            $stt++;
+                            ?>
+                            <tr>
+                                <td>{{$stt}}</td>
+                                <td><img src="{{asset($book_sale->image)}}" style="max-width: 100%; max-height: 100%"/>
+                                </td>
+                                <td>{{$book_sale->title}}</td>
+                                <td>{{$book_sale->genre_name}}</td>
+                                <td>{{$book_sale->author_name}}</td>
+                                <td>{{number_format($book_sale->price, 0, ',', '.')}}</td>
+                                <td>{{$book_sale->sale}}</td>
+                                <td>{{$book_sale->quantity}}</td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--    Top salling-->
+    <div id="booksalling_dialog" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 id="dialog_title" class="modal-title">Danh sách sách bán chạy</h4>
+                </div>
+                <div class="modal-body">
+                    <table id="booksalling_table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th style="width: 10%">Ảnh bìa</th>
+                            <th style="width: 30%">Tên sách</th>
+                            <th style="width: 12%">Thể loại</th>
+                            <th style="width: 15%">Tác giả</th>
+                            <th style="width: 10%">Giá (vnđ)</th>
+                            <th style="">Sale (%)</th>
+                            <th style="">Đã bán</th>
+                            <th style="">Kho</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $stt = 0;
+                        foreach ($data['books_selling'] as $book_selling) {
+                            $stt++;
+                            ?>
+                            <tr>
+                                <td>{{$stt}}</td>
+                                <td><img src="{{asset($book_selling->image)}}"
+                                         style="max-width: 100%; max-height: 100%"/></td>
+                                <td>{{$book_selling->title}}</td>
+                                <td>{{$book_selling->genre_name}}</td>
+                                <td>{{$book_selling->author_name}}</td>
+                                <td>{{number_format($book_selling->price, 0, ',', '.')}}</td>
+                                <td>{{$book_selling->sale}}</td>
+                                <td>{{$book_selling->sum_quantity}}</td>
+                                <td>{{$book_selling->quantity}}</td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 </section><!-- /.content -->
 
@@ -112,4 +210,13 @@ BookStore - Admin pages
 @stop
 
 @section('javascript')
+<script>
+    function openBookSaleDialog() {
+        $("#booksale_dialog").modal('show');
+    }
+    function openBookSallingDialog() {
+        $("#booksalling_dialog").modal('show');
+    }
+</script>
+
 @stop

@@ -3,57 +3,102 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 
 use App\User;
-use App\Http\Requests\UserRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Customer;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-	use AuthenticatesAndRegistersUsers;
-
-	public function getLogin(){
-		return view('login');
+	public function getAccount()
+	{
+		$accounts = User::where('userable_type', '!=', 'customer')->where('deleted', '=', 0)->orderBy('userable_type')->orderBy('username')->get();
+		return view('admin.pages.account')->with('accounts', $accounts);
 	}
-    public function postLogin(UserRequest $request) {
 
-			// create our user data for the authentication
-			$userdata = array(
-				'username' => $request->input('username'),
-				'password' => $request->input('password'),
-			);
-			// attempt to do the login
-			if (Auth::attempt($userdata)) {
+	public function accountInfo(Request $request)
+	{
+		$account = User::findOrFail($request->id);
 
-				// validation successful!
-				// redirect them to the  section or whatever
-				// return Redirect::to('secure');
-				// for now we'll just echo success (even though echoing in a controller is bad)
-				// $url_previous = Session::get("login_previous");
-				// Session::forget("login_previous");
-				// return Redirect::to($url_previous);
-				echo "true";
-				// return Redirect::back();
-				// return Redirect::to(URL::previous()); //test
+		return $account;
+	}
 
-			} else {
+	public function delAccount(Request $request)
+	{
+		$Account_IDs = json_decode(stripslashes($request->accountIds));
+		$check = false;
+		foreach ($Account_IDs as $id) {
+			$user = User::find($id);
+			if ($user->username == Auth::user()->username)
+				return "Không thể xóa account \"" . $user->username . "\"";
+			$user->deleted = 1;
+			$check = $user->save();
+			if ($check) {
+				$customer = Customer::findOrFail($user->userable_id);
+				$customer->deleted = 1;
+				$check = $customer->save();
+			} else break;
+		}
+		if ($check) {
+			return "true";
+		} else {
+			return "Có lỗi xảy ra. Vui lòng thử lại sau!";
+		}
+	}
 
-				// validation not successful, send back to form
-				// return Redirect::to('login');
-				// $password = Hash::make(Input::get('password'));
-				// echo json_encode($password);
-				echo "false";
-				// return view('login', array('title' => 'Welcome', 'description' => '', 'page' => 'home'));
-				// Session::flash('error_login', 'Log In failed!!!');
-				// return Redirect::back();
+	public function saveAccount(Request $request)
+	{
+		if ($request->account_id != "") {
+			$user = User::find($request->account_id);
+			if ($request->password != "") {
+				$user->password = Hash::make($request->password);
 			}
+			$user->email = $request->email;
+			$user->userable_type = $request->userable_type;
+			$user->banned = $request->banned;
+			$check = $user->save();
+			if ($check)
+				return "EDIT_SUCCEED";
+			else
+				return "Có lỗi xảy ra. Vui lòng thử lại sau!";
+		} else {
+			$user = new User;
+			$user->username = $request->username;
+			$user->password = Hash::make($request->password);
+			$user->email = $request->email;
+			$user->userable_type = $request->userable_type;
+			$check = $user->save();
+			if ($check) {
+				$data = array(
+					'msg' => 'ADD_SUCCEED',
+					'account_id' => $user->id
+				);
+				return $data;
+			} else
+				return "Có lỗi xảy ra. Vui lòng thử lại sau!";
+		}
 	}
 
-	public function logout() {
-		Auth::logout();
-    	return Redirect::away('login');
+	public function checkUsername(Request $request)
+	{
+		$username = $request->username;
+		$count = User::where('username', '=', $username)->count();
+		if ($count > 0) {
+			echo 'false';
+		} else
+			echo 'true';
+	}
+
+	public function checkEmail(Request $request)
+	{
+		$email = $request->email;
+		$count = User::where('email', '=', $email)->count();
+		if ($count > 0) {
+			echo 'false';
+		} else
+			echo 'true';
 	}
 }
